@@ -1,0 +1,1 @@
+<h1>A School Management System!!</h1>
