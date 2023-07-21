@@ -1,0 +1,16 @@
+{
+    "name": "hp/schmgtsys",
+    "authors": [
+        {
+            "name": "Toba-dean",
+            "email": "tobaogundimu@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
