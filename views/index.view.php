@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-</head>
+require base_path("/views/partials/head.php");
 
-<body>
+?>
 
+<div class="container-fluid">
   <h1>This a School Management App!!</h1>
 
-</body>
+  <p>
+    <a href="/login">Login Page</a>
+  </p>
+</div>
 
-</html>
+<?php
+
+require base_path("/views/partials/footer.php");
+
+?>

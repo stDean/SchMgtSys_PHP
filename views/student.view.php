@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-</head>
+require_once "partials/head.php";
 
-<body>
+?>
 
-  <h1>This a School Management App, Student Route!!</h1>
+<h1>This a School Management App, Student Route!!</h1>
 
-</body>
+<?php
 
-</html>
+require_once "partials/footer.php";
+
+?>
