@@ -1,6 +1,7 @@
 <?php
 
 require base_path("/views/partials/head.php");
+require base_path("/views/partials/nav.php");
 
 ?>
 
