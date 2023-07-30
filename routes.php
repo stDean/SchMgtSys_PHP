@@ -7,3 +7,4 @@ $router->get('/profile', "profile.php");
 $router->get('/login', "session/create.php");
 
 $router->get('/register', "register/create.php");
+$router->post('/register', "register/store.php");

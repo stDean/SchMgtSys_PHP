@@ -1,7 +1,10 @@
 <?php
 
-use Core\App;
 use Core\Router;
+use Core\Session;
+use Core\ValidationException;
+
+session_start();
 
 const BASE_PATH = __DIR__ . "/../";
 
@@ -16,4 +19,13 @@ require base_path('routes.php');
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-$router->route($uri, $method);
+try{
+  $router->route($uri, $method);
+} catch(ValidationException $e) {
+  Session::flash('errors', $e->errors);
+  Session::flash('old', $e->old);
+
+  return redirect($router->previousUrl());
+}
+
+Session::unFlash();
