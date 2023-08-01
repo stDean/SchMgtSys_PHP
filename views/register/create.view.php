@@ -2,9 +2,6 @@
 
 require base_path("/views/partials/head.php");
 
-if (isset($errors)) {
-  // dd($errors);
-}
 
 ?>
 

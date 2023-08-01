@@ -1,3 +1,8 @@
+<?php
+
+use Core\Session;
+
+?>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -21,18 +26,27 @@
         <li class="nav-item">
           <a class="nav-link" href="/tests">TESTS</a>
         </li>
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            USER
+            <?= Session::getFirst_Name() ?>
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="/profile">Profile</a></li>
             <li><a class="dropdown-item" href="/">Dashboard</a></li>
             <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            <li>
+              <form action="/session" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" style="border: none; outline: none; background: transparent; padding-left:20px;">Log Out</button>
+              </form>
+            </li>
           </ul>
         </li>
       </ul>
+
     </div>
   </div>
 </nav>

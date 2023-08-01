@@ -16,8 +16,7 @@ $attributes = [
 $form = RegForm::validate($attributes);
 $registerUser = (new RegAuth)->attempt($attributes);
 
-if ($registerUser) {
-  redirect('/login');
+if (!$registerUser) {
+  $form->error('email', "Email exists, Try again with new email.")->throw();
 }
-
-redirect('/register');
+redirect('/login');
