@@ -5,8 +5,7 @@ require base_path("/views/partials/nav.php");
 
 ?>
 
-<div class="container-fluid p-4 shadow mx-auto" style="max-width: 1000px">
-  <?php require base_path("/views/partials/breadcrumb.php"); ?>
+<div class="container-fluid p-4 shadow mx-auto mt-4" style="max-width: 1000px">
   <div class="row">
     <div class="col-sm-4 col-md-3">
       <img src="/assets/imgs/user_male.jpg" alt="profile picture" class="border border-primary d-block mx-auto rounded-circle" style="width: 150px;">

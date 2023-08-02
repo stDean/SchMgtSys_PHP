@@ -15,16 +15,22 @@ use Core\Session;
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">DASHBOARD</a>
+          <a class="nav-link <?= $_SERVER["REQUEST_URI"] === '/' ? 'active bg-secondary text-white' : '' ?>" aria-current="page" href="/">DASHBOARD</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/users">USERS</a>
+          <a class="nav-link <?= urlIs('/schools') ? 'active bg-secondary text-white' : '' ?>" href="/schools">SCHOOLS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/classes">CLASSES</a>
+          <a class="nav-link <?= urlIs('/users') ? 'active bg-secondary text-white' : '' ?>" href="/users">STAFFS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/tests">TESTS</a>
+          <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/student">STUDENTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?= urlIs('/classes') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <?= urlIs('/tests') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS</a>
         </li>
       </ul>
 
