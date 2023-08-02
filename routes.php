@@ -12,10 +12,11 @@ $router->get('/schools/edit', "schools/edit.php")->only('auth');
 $router->patch('/schools', "schools/update.php")->only('auth');
 $router->get('/schools/delete', "schools/delete.php")->only('auth');
 $router->delete('/schools', "schools/destroy.php")->only('auth');
+$router->get('/switch_school', "schools/switch.php")->only('superAdmin');
 
 $router->get('/login', "session/create.php")->only('guest');
 $router->post('/session', "session/store.php")->only('guest');
 $router->delete('/session', "session/destroy.php")->only('auth');
 
-$router->get('/register', "register/create.php")->only('guest');
-$router->post('/register', "register/store.php")->only('guest');
+$router->get('/register', "register/create.php")->only('auth');
+$router->post('/register', "register/store.php")->only('auth');

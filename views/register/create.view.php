@@ -1,5 +1,7 @@
 <?php
 
+use Core\Session;
+
 require base_path("/views/partials/head.php");
 
 
@@ -36,13 +38,17 @@ require base_path("/views/partials/head.php");
         <option <?= old('role') === 'reception' ? "selected" : '' ?> value="reception">Reception</option>
         <option <?= old('role') === 'lecturer' ? "selected" : '' ?> value="lecturer">Lecturer</option>
         <option <?= old('role') === 'admin' ? "selected" : '' ?> value="admin">Admin</option>
-        <option <?= old('role') === 'super_admin' ? "selected" : '' ?> value="super_admin">Super Admin</option>
+
+        <?php if (Session::getRole() === 'SUPER_ADMIN') : ?>
+          
+          <option <?= old('role') === 'super_admin' ? "selected" : '' ?> value="super_admin">Super Admin</option>
+        <?php endif; ?>
       </select>
       <input type="text" name="password" placeholder="Password" class="form-control my-2 <?= isset($errors['password']) ? 'border border-danger' : '' ?>">
       <input type="text" name="cfPassword" placeholder="Retype Password" class="form-control my-2">
       <br>
       <button class="btn btn-primary float-end">Add User</button>
-      <button class="btn btn-danger text-white">Cancel</button>
+      <a href="/users" class="btn btn-danger text-white">Cancel</a>
     </div>
   </div>
 </form>

@@ -19,4 +19,4 @@ $registerUser = (new RegAuth)->attempt($attributes);
 if (!$registerUser) {
   $form->error('email', "Email exists, Try again with new email.")->throw();
 }
-redirect('/login');
+redirect('/users');

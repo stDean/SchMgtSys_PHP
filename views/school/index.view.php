@@ -33,6 +33,7 @@ require base_path("/views/partials/nav.php");
                 <i class="fa fa-edit"></i>
               </a>
               <a href="/schools/delete?id=<?= $school['id'] ?>" type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
+              <a href="/switch_school?id=<?= $school['id'] ?>" type="submit" class="btn btn-sm btn-success"><i class="fa fa-chevron-right"></i>Switch To</a>
             </td>
           </tr>
         <?php endforeach; ?>

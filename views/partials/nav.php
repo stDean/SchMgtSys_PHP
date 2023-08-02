@@ -2,12 +2,14 @@
 
 use Core\Session;
 
+// dd(Session::get('user'));
+
 ?>
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="/assets/imgs/logo.png" alt="School Logo" style="width: 50px" />
-      <b>My School</b>
+      <b><?= key_exists('school_name', Session::get('user')) ? explode(" ", Session::getSchool_Name())[0] : "Unknown" ?></b>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
