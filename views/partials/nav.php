@@ -2,9 +2,8 @@
 
 use Core\Session;
 
-// dd(Session::get('user'));
-
 ?>
+
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -26,7 +25,7 @@ use Core\Session;
           <a class="nav-link <?= urlIs('/users') ? 'active bg-secondary text-white' : '' ?>" href="/users">STAFFS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/student">STUDENTS</a>
+          <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/students">STUDENTS</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/classes') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>

@@ -12,11 +12,11 @@ $attributes = [
   'password' => $_POST['password'],
   'cfPassword' => $_POST['cfPassword']
 ];
-
+$mode = str_contains('mode=student', explode("?", $_SERVER['HTTP_REFERER'])[1]) ? 'students' : 'users';
 $form = RegForm::validate($attributes);
 $registerUser = (new RegAuth)->attempt($attributes);
-
 if (!$registerUser) {
   $form->error('email', "Email exists, Try again with new email.")->throw();
 }
-redirect('/users');
+
+redirect($mode);

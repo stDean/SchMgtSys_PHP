@@ -27,28 +27,38 @@ require base_path("/views/partials/head.php");
       <input type="text" name="first_name" placeholder="First Name" class="form-control my-2 <?= isset($errors['first_name']) ? 'border border-danger' : '' ?>" value="<?= old('first_name'); ?>">
       <input type="text" name="last_name" placeholder="Last Name" class="form-control my-2 <?= isset($errors['last_name']) ? 'border border-danger' : '' ?>" value="<?= old('last_name'); ?>">
       <input type="email" name="email" placeholder="Email" class="form-control my-2 <?= isset($errors['email']) ? 'border border-danger' : '' ?>" value="<?= old('email'); ?>">
+
       <select name="gender" id="" class="form-control my-2 <?= isset($errors['gender']) ? 'border border-danger' : '' ?>">
         <option <?= old('gender') === '' ? "selected" : '' ?> value="">--Select a Gender--</option>
         <option <?= old('gender') === 'male' ? "selected" : '' ?> value="male">Male</option>
         <option <?= old('gender') === 'female' ? "selected" : '' ?> value="female">Female</option>
       </select>
-      <select name="role" id="" class="form-control my-2 <?= isset($errors['role']) ? 'border border-danger' : '' ?>">
-        <option <?= old('role') === '' ? "selected" : '' ?> value="">--Select a Rank--</option>
-        <option <?= old('role') === 'student' ? "selected" : '' ?> value="student">Student</option>
-        <option <?= old('role') === 'reception' ? "selected" : '' ?> value="reception">Reception</option>
-        <option <?= old('role') === 'lecturer' ? "selected" : '' ?> value="lecturer">Lecturer</option>
-        <option <?= old('role') === 'admin' ? "selected" : '' ?> value="admin">Admin</option>
 
-        <?php if (Session::getRole() === 'SUPER_ADMIN') : ?>
-          
-          <option <?= old('role') === 'super_admin' ? "selected" : '' ?> value="super_admin">Super Admin</option>
+      <?php if ($mode === 'student') : ?>
+        <input type="text" value="student" readonly class="form-control" name="role" />
+      <?php else : ?>
+        <select name="role" id="" class="form-control my-2 <?= isset($errors['role']) ? 'border border-danger' : '' ?>">
+          <option <?= old('role') === '' ? "selected" : '' ?> value="">--Select a Rank--</option>
+          <option <?= old('role') === 'student' ? "selected" : '' ?> value="student">Student</option>
+          <option <?= old('role') === 'reception' ? "selected" : '' ?> value="reception">Reception</option>
+          <option <?= old('role') === 'lecturer' ? "selected" : '' ?> value="lecturer">Lecturer</option>
+          <option <?= old('role') === 'admin' ? "selected" : '' ?> value="admin">Admin</option>
+
+          <?php if (Session::getRole() === 'SUPER_ADMIN') : ?>
+
+            <option <?= old('role') === 'super_admin' ? "selected" : '' ?> value="super_admin">Super Admin</option>
+          <?php endif; ?>
         <?php endif; ?>
-      </select>
-      <input type="text" name="password" placeholder="Password" class="form-control my-2 <?= isset($errors['password']) ? 'border border-danger' : '' ?>">
-      <input type="text" name="cfPassword" placeholder="Retype Password" class="form-control my-2">
-      <br>
-      <button class="btn btn-primary float-end">Add User</button>
-      <a href="/users" class="btn btn-danger text-white">Cancel</a>
+        </select>
+        <input type="text" name="password" placeholder="Password" class="form-control my-2 <?= isset($errors['password']) ? 'border border-danger' : '' ?>">
+        <input type="text" name="cfPassword" placeholder="Retype Password" class="form-control my-2">
+        <br>
+        <button class="btn btn-primary float-end">Add User</button>
+        <?php if ($mode === 'student') : ?>
+          <a href="/students" class="btn btn-danger text-white">Cancel</a>
+        <?php else : ?>
+          <a href="/users" class="btn btn-danger text-white">Cancel</a>
+        <?php endif; ?>
     </div>
   </div>
 </form>

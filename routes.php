@@ -1,9 +1,18 @@
 <?php
 
 $router->get('/', "index.php")->only('auth');
-$router->get('/student', "student.php")->only('auth');
+$router->get('/students', "student.php")->only('auth');
 $router->get('/profile', "profile.php")->only('auth');
 $router->get('/users', "users.php")->only('auth');
+
+$router->get('/classes', "classes/index.php")->only('auth');
+$router->get('/classes/create', "classes/create.php")->only('auth');
+$router->post('/classes/store', "classes/store.php")->only('auth');
+$router->get('/classes/edit', "classes/edit.php")->only('auth');
+$router->patch('/classes', "classes/update.php")->only('auth');
+$router->get('/classes/delete', "classes/delete.php")->only('auth');
+$router->delete('/classes', "classes/destroy.php")->only('auth');
+$router->get('/single_class', "classes/single_class.php")->only('auth');
 
 $router->get('/schools', "schools/index.php")->only('auth');
 $router->get('/schools/create', "schools/create.php")->only('auth');
