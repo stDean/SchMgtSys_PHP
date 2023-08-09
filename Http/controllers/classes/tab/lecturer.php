@@ -3,6 +3,9 @@
 use Core\App;
 use Core\Database;
 
+// dump($_GET);
+// dd($_POST);
+
 $db = App::resolve(Database::class);
 $class = $db->query('SELECT * FROM classes WHERE class_id=:class_id', [
   'class_id' => $_GET['id']
@@ -17,5 +20,6 @@ $tab = isset($_GET['tab']) ? $_GET['tab'] : 'lecturer';
 view('classes/single.class.view.php', [
   'class' => $class,
   'user' => $user,
-  'page_tab' => $tab
+  'page_tab' => $tab,
+  'result' => []
 ]);

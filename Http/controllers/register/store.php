@@ -12,7 +12,9 @@ $attributes = [
   'password' => $_POST['password'],
   'cfPassword' => $_POST['cfPassword']
 ];
-$mode = str_contains('mode=student', explode("?", $_SERVER['HTTP_REFERER'])[1]) ? 'students' : 'users';
+
+$mode = explode("=", $_SERVER['HTTP_REFERER'])[1] === 'student' ? 'students' : 'users';
+// dd($mode);
 $form = RegForm::validate($attributes);
 $registerUser = (new RegAuth)->attempt($attributes);
 if (!$registerUser) {

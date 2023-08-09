@@ -24,16 +24,8 @@ require base_path("/views/partials/nav.php");
   <div class="card-group justify-content-center">
     <?php if (!empty($students)) : ?>
 
-      <?php foreach ($students as $student) : ?>
-        <div class="card m-2 shadow-sm" style="max-width: 14rem; min-width:14rem;">
-          <img src="<?= getImage($student) ?>" alt="profile photo" class="d-block mx-auto card-img-top">
-
-          <div class="card-body">
-            <h5 class="card-title"><?= htmlspecialchars($student['first_name']) ?></h5>
-            <p class="card-text">Rank: <?= htmlspecialchars(ucwords(str_replace("_", " ", $student['role']))) ?></p>
-            <a href="/profile?id=<?= $student['user_id'] ?>" class="btn btn-primary">Profile</a>
-          </div>
-        </div>
+      <?php foreach ($students as $row) : ?>
+        <?php require base_path('/views/partials/single_user.php'); ?>
       <?php endforeach; ?>
 
     <?php else : ?>

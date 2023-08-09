@@ -28,7 +28,7 @@ use Core\Session;
           <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/students">STUDENTS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= urlIs('/classes') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
+          <a class="nav-link <?= urlIs('/classes') || urlIs('/single_class') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/tests') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS</a>
