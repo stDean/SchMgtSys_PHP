@@ -3,8 +3,6 @@
 require base_path("/views/partials/head.php");
 require base_path("/views/partials/nav.php");
 
-// dump($user);
-// dd($class);
 ?>
 
 <div class="container-fluid p-4 shadow mx-auto mt-4" style="max-width: 1000px">

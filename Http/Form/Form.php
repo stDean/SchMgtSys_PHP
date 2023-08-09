@@ -21,7 +21,6 @@ abstract class Form
 
   protected function failed()
   {
-    // dd($this->errors);
     return count($this->errors);
   }
 

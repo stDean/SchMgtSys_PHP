@@ -14,7 +14,6 @@ $attributes = [
 ];
 
 $mode = explode("=", $_SERVER['HTTP_REFERER'])[1] === 'student' ? 'students' : 'users';
-// dd($mode);
 $form = RegForm::validate($attributes);
 $registerUser = (new RegAuth)->attempt($attributes);
 if (!$registerUser) {
