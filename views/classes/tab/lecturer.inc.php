@@ -8,15 +8,9 @@
     </div>
   </form>
 
-  <div>
-    <a href='/single_class?id=<?= $class['class_id'] ?>&tab=lecturer-remove' class="btn btn-sm btn-primary ">
-      <i class="fa fa-plus"></i>Add New
-    </a>
-
-    <a href='/single_class?id=<?= $class['class_id'] ?>&tab=lecturer-add' class="btn btn-sm btn-danger ">
-      <i class="fa fa-minus"></i>Remove
-    </a>
-  </div>
+  <a href='/single_class?id=<?= $class['class_id'] ?>&tab=lecturer-add' class="btn btn-sm btn-primary ">
+    <i class="fa fa-plus"></i>Add New
+  </a>
 
 </nav>
 
@@ -28,6 +22,8 @@
       $row = $lecturer['user'];
       require base_path('/views/partials/single_user.php');
     }
+  } else {
+    echo "<h4 align='center' style='margin-top: 20px;'>No lecturers found in this class.</h4>";
   }
   ?>
 </div>

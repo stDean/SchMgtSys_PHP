@@ -14,6 +14,7 @@ $router->get('/classes/delete', "classes/delete.php")->only('auth');
 $router->delete('/classes', "classes/destroy.php")->only('auth');
 $router->get('/single_class', "classes/single_class.php")->only('auth');
 $router->post('/single_class', "classes/tab/lecturer.php")->only('auth');
+$router->delete('/single_class', "classes/tab/lecturer.destroy.php")->only('auth');
 
 $router->get('/schools', "schools/index.php")->only('auth');
 $router->get('/schools/create', "schools/create.php")->only('auth');

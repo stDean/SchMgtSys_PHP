@@ -11,20 +11,12 @@ require base_path("/views/partials/nav.php");
       <h3 align='center' style="margin-bottom: 15px;"><?= htmlspecialchars($class['class_name']) ?></h3>
       <table class="table table-striped">
         <tr>
-          <th>Class Name:
-          <th>
-          <td><?= htmlspecialchars($class['class_name']) ?></td>
-          </th>
-          </th>
-        </tr>
-        <tr>
           <th>Created By:
           <th>
           <td><?= htmlspecialchars($user['first_name']) ?> <?= htmlspecialchars($user['last_name']) ?></td>
           </th>
           </th>
-        </tr>
-        <tr>
+
           <th>Date Created:
           <th>
           <td><?= formatDate($class['createdAt']) ?></td>
