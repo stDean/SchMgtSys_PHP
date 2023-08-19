@@ -1,6 +1,7 @@
 <?php
 
 use Core\Auth\LoginAuth;
+use Core\Session;
 use Http\Form\LoginForm;
 
 $attributes = [
@@ -10,6 +11,8 @@ $attributes = [
 
 $form = LoginForm::validate($attributes);
 $signedIn = (new LoginAuth)->attempt($attributes);
+
+$loggedUser = Session::get('user');
 
 if (!$signedIn) {
   $form->error('email', "Wrong credentials, Try again.")->throw();

@@ -1,4 +1,4 @@
-<div class="card m-2 shadow-sm" style="max-width: 14rem; min-width:14rem;">
+<div class="card m-2 shadow-sm" style="max-width: 12rem; min-width:12rem;">
   <img src="<?= getImage($row) ?>" alt="profile photo" class="d-block mx-auto card-img-top">
 
   <div class="card-body">
@@ -20,3 +20,4 @@
     </div>
   </div>
 </div>
+

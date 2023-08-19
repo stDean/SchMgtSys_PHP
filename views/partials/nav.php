@@ -6,7 +6,7 @@ use Core\Session;
 
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="/">
       <img src="/assets/imgs/logo.png" alt="School Logo" style="width: 50px" />
       <b><?= key_exists('school_name', Session::get('user')) ? explode(" ", Session::getSchool_Name())[0] : "Unknown" ?></b>
     </a>

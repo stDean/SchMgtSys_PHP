@@ -12,9 +12,13 @@ $router->get('/classes/edit', "classes/edit.php")->only('auth');
 $router->patch('/classes', "classes/update.php")->only('auth');
 $router->get('/classes/delete', "classes/delete.php")->only('auth');
 $router->delete('/classes', "classes/destroy.php")->only('auth');
+
 $router->get('/single_class', "classes/single_class.php")->only('auth');
-$router->post('/single_class', "classes/tab/lecturer.php")->only('auth');
-$router->delete('/single_class', "classes/tab/lecturer.destroy.php")->only('auth');
+$router->get('/single_class/lecturer', "classes/tab/create.php")->only('auth');
+$router->post('/single_class/lecturer', "classes/tab/add.php")->only('auth');
+$router->delete('/single_class', "classes/tab/destroy.php")->only('auth');
+$router->get('/single_class/student', "classes/tab/create.php")->only('auth');
+$router->post('/single_class/student', "classes/tab/add.php")->only('auth');
 
 $router->get('/schools', "schools/index.php")->only('auth');
 $router->get('/schools/create', "schools/create.php")->only('auth');
@@ -28,6 +32,7 @@ $router->get('/switch_school', "schools/switch.php")->only('superAdmin');
 $router->get('/login', "session/create.php")->only('guest');
 $router->post('/session', "session/store.php")->only('guest');
 $router->delete('/session', "session/destroy.php")->only('auth');
+$router->get('/logout', "session/destroy.php")->only('auth');
 
 $router->get('/register', "register/create.php")->only('auth');
 $router->post('/register', "register/store.php")->only('auth');
