@@ -68,26 +68,31 @@ require base_path("/views/partials/nav.php");
     <div class="container-fluid">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Basic Info</a>
+          <a class="nav-link <?= $page_tab === 'info' ? 'active' : '' ?>" href="/profile?user=<?= strtolower($user['user_id']) ?>&tab=info">Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Classes</a>
+          <a class="nav-link <?= $page_tab === 'classes' ? 'active' : '' ?>" href="/profile?user=<?= strtolower($user['user_id']) ?>&tab=classes">Classes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tests</a>
+          <a class="nav-link <?= $page_tab === 'test' ? 'active' : '' ?>" href="/profile?user=<?= strtolower($user['user_id']) ?>&tab=test">Tests</a>
         </li>
       </ul>
 
-      <nav class="navbar navbar-light bg-light">
-        <form class="container-fluid">
-          <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">
-              <i class="fa fa-search"></i>
-            </span>
-            <input type="text" class="form-control" name="search" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
-          </div>
-        </form>
-      </nav>
+      <?php
+
+      switch ($page_tab) {
+        case "info":
+          require("tab/info.inc.php");
+          break;
+        case "classes":
+          require("tab/classes.inc.php");
+          break;
+        case "test":
+          require("tab/test.inc.php");
+          break;
+      }
+
+      ?>
     </div>
 
   <?php else : ?>

@@ -2,8 +2,9 @@
 
 $router->get('/', "index.php")->only('auth');
 $router->get('/students', "student.php")->only('auth');
-$router->get('/profile', "profile.php")->only('auth');
 $router->get('/users', "users.php")->only('auth');
+
+$router->get('/profile', "profile/index.php")->only('auth');
 
 $router->get('/classes', "classes/index.php")->only('auth');
 $router->get('/classes/create', "classes/create.php")->only('auth');
