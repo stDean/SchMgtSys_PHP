@@ -6,15 +6,9 @@ require base_path("/views/partials/nav.php");
 ?>
 
 <div class="container-fluid p-4 shadow mx-auto mt-4" style="max-width: 1000px">
+  <h3 align='center'>All Students</h3>
   <nav class="navbar navbar-light bg-light">
-    <form class="form-inline">
-      <div class="input-group">
-        <span class="input-group-text" id="basic-addon1">
-          <i class="fa fa-search"></i>
-        </span>
-        <input type="text" class="form-control" name="search" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
-      </div>
-    </form>
+    <?php require base_path("/views/partials/searchForm.php") ?>
 
     <a href="/register?mode=student" class="btn btn-sm btn-primary ">
       <i class="fa fa-plus"></i>Add New Student
@@ -32,6 +26,8 @@ require base_path("/views/partials/nav.php");
       <h4>No students at this moment.</h4>
     <?php endif; ?>
   </div>
+
+  <?php $pager->display(); ?>
 </div>
 
 <?php

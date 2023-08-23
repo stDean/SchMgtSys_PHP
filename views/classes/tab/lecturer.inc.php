@@ -24,3 +24,7 @@
   }
   ?>
 </div>
+
+<div>
+  <?php $pager->display(); ?>
+</div>

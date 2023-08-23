@@ -5,7 +5,7 @@ require base_path("/views/partials/nav.php");
 
 ?>
 
-<h2 align="center" class="alert alert-danger">Page Not Found</h2>
+<h2 align="center" class="alert alert-danger">Unauthorized Access.</h2>
 
 <?php
 

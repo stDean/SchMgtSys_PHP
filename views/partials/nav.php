@@ -18,15 +18,21 @@ use Core\Session;
         <li class="nav-item">
           <a class="nav-link <?= $_SERVER["REQUEST_URI"] === '/' ? 'active bg-secondary text-white' : '' ?>" aria-current="page" href="/">DASHBOARD</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link <?= urlIs('/schools') ? 'active bg-secondary text-white' : '' ?>" href="/schools">SCHOOLS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?= urlIs('/users') ? 'active bg-secondary text-white' : '' ?>" href="/users">STAFFS</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/students">STUDENTS</a>
-        </li>
+        <?php if (access('super_admin')) : ?>
+          <li class="nav-item">
+            <a class="nav-link <?= urlIs('/schools') ? 'active bg-secondary text-white' : '' ?>" href="/schools">SCHOOLS</a>
+          </li>
+        <?php endif; ?>
+        <?php if (access('admin')) : ?>
+          <li class="nav-item">
+            <a class="nav-link <?= urlIs('/users') ? 'active bg-secondary text-white' : '' ?>" href="/users">STAFFS</a>
+          </li>
+        <?php endif; ?>
+        <?php if (access('reception')) : ?>
+          <li class="nav-item">
+            <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/students">STUDENTS</a>
+          </li>
+        <?php endif; ?>
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/classes') || urlIs('/single_class') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
         </li>

@@ -28,35 +28,41 @@ require base_path("/views/partials/nav.php");
 
 <div class="container-fluid p-4 shadow mx-auto" style="max-width: 1000px;">
   <div class="row justify-content-center ">
-    <div class="card col-3 shadow rounded m-4 p-0 border">
-      <a href="/schools">
-        <div class="card-header">SCHOOLS</div>
-        <h1 class="text-center">
-          <i class="fa fa-graduation-cap"></i>
-        </h1>
-        <div class="card-footer">View all schools</div>
-      </a>
-    </div>
+    <?php if (access('super_admin')) : ?>
+      <div class="card col-3 shadow rounded m-4 p-0 border">
+        <a href="/schools">
+          <div class="card-header">SCHOOLS</div>
+          <h1 class="text-center">
+            <i class="fa fa-graduation-cap"></i>
+          </h1>
+          <div class="card-footer">View all schools</div>
+        </a>
+      </div>
+    <?php endif; ?>
 
-    <div class="card col-3 shadow rounded m-4 p-0 border">
-      <a href="/users">
-        <div class="card-header">STAFF</div>
-        <h1 class="text-center">
-          <i class="fa fa-chalkboard-teacher"></i>
-        </h1>
-        <div class="card-footer">View all staff members</div>
-      </a>
-    </div>
+    <?php if (access('admin')) : ?>
+      <div class="card col-3 shadow rounded m-4 p-0 border">
+        <a href="/users">
+          <div class="card-header">STAFF</div>
+          <h1 class="text-center">
+            <i class="fa fa-chalkboard-teacher"></i>
+          </h1>
+          <div class="card-footer">View all staff members</div>
+        </a>
+      </div>
+    <?php endif; ?>
 
-    <div class="card col-3 shadow rounded m-4 p-0 border">
-      <a href="/students">
-        <div class="card-header">STUDENTS</div>
-        <h1 class="text-center">
-          <i class="fa fa-user-graduate"></i>
-        </h1>
-        <div class="card-footer">View all students</div>
-      </a>
-    </div>
+    <?php if (access('reception')) : ?>
+      <div class="card col-3 shadow rounded m-4 p-0 border">
+        <a href="/students">
+          <div class="card-header">STUDENTS</div>
+          <h1 class="text-center">
+            <i class="fa fa-user-graduate"></i>
+          </h1>
+          <div class="card-footer">View all students</div>
+        </a>
+      </div>
+    <?php endif; ?>
 
     <div class="card col-3 shadow rounded m-4 p-0 border">
       <a href="/classes">
@@ -78,25 +84,27 @@ require base_path("/views/partials/nav.php");
       </a>
     </div>
 
-    <div class="card col-3 shadow rounded m-4 p-0 border">
-      <a href="/statistics">
-        <div class="card-header">STATISTICS</div>
-        <h1 class="text-center">
-          <i class="fa fa-chart-pie"></i>
-        </h1>
-        <div class="card-footer">View student statistics</div>
-      </a>
-    </div>
+    <?php if (access('admin')) : ?>
+      <div class="card col-3 shadow rounded m-4 p-0 border">
+        <a href="/statistics">
+          <div class="card-header">STATISTICS</div>
+          <h1 class="text-center">
+            <i class="fa fa-chart-pie"></i>
+          </h1>
+          <div class="card-footer">View student statistics</div>
+        </a>
+      </div>
 
-    <div class="card col-3 shadow rounded m-4 p-0 border">
-      <a href="/settings">
-        <div class="card-header">SETTINGS</div>
-        <h1 class="text-center">
-          <i class="fa fa-cogs"></i>
-        </h1>
-        <div class="card-footer">View app settings</div>
-      </a>
-    </div>
+      <div class="card col-3 shadow rounded m-4 p-0 border">
+        <a href="/settings">
+          <div class="card-header">SETTINGS</div>
+          <h1 class="text-center">
+            <i class="fa fa-cogs"></i>
+          </h1>
+          <div class="card-footer">View app settings</div>
+        </a>
+      </div>
+    <?php endif; ?>
 
     <div class="card col-3 shadow rounded m-4 p-0 border">
       <a href="/profile">

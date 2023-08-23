@@ -4,6 +4,7 @@ use Core\App;
 use Core\Database;
 use Core\Session;
 
+$errors = [];
 $db = App::resolve(Database::class);
 $id = isset($_GET['user']) ? $_GET['user'] : Session::getUser_Id();
 
@@ -34,11 +35,9 @@ if ($tab === "classes") {
   }
 }
 
-if (access('reception') || canModifyContent($user)) {
-  view('profile/index.view.php', [
-    'user' => $user,
-    'page_tab' => $tab
-  ]);
-} else {
-  abort(403);
-}
+
+view('profile/edit.view.php', [
+  'user' => $user,
+  'page_tab' => $tab,
+  'errors' => $errors
+]);
