@@ -4,14 +4,14 @@ namespace Http\Form;
 
 use Core\Validator;
 
-class ClassForm extends Form
+class TestForm extends Form
 {
   public function __construct($attributes)
   {
     parent::__construct($attributes);
 
-    if (!Validator::string($attributes['class_name'], 4, 255)) {
-      $this->errors['class_name'] = "Class name cannot be blank.";
+    if (!Validator::string($attributes['test_name'], 4, 255)) {
+      $this->errors['test_name'] = "Test name cannot be blank.";
     }
   }
 

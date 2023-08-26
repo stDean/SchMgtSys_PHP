@@ -2,7 +2,7 @@
   <table class="table table-hover">
     <tr>
       <th></th>
-      <th>Class Name</th>
+      <th><?= $title ?> Name</th>
       <th>Created By</th>
       <th>Date</th>
       <th>
@@ -16,7 +16,7 @@
 
         <tr>
           <td>
-            <a href="/single_class?id=<?= $class['class_id'] ?>" class="btn btn-sm btn-primary">
+            <a href="/single_<?= strtolower($title) ?>?id=<?= $class[strtolower($title) . "_id"] ?>" class="btn btn-sm btn-primary">
               <i class="fa fa-chevron-right"></i>
             </a>
           </td>
@@ -28,17 +28,21 @@
 
           <?php if (access('lecturer')) : ?>
             <td>
-              <a href="/classes/edit?id=<?= $class['id'] ?>" class="btn btn-sm btn-info text-white">
+              <a href="/<?= strtolower($title) ?>/edit?id=<?= $class['id'] ?>" class="btn btn-sm btn-info text-white">
                 <i class="fa fa-edit"></i>
               </a>
-              <a href="/classes/delete?id=<?= $class['id'] ?>" type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
+              <a href="/<?= strtolower($title) ?>/delete?id=<?= $class['id'] ?>" type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
             </td>
           <?php endif; ?>
         </tr>
       <?php endforeach; ?>
 
     <?php else : ?>
-      <h2 class="py-4">No Classes present at this moment.</h2>
+      <tr>
+        <td colspan="5">
+          <h3 align="center">No <?= strtolower($title) ?> present at this moment.</h3>
+        </td>
+      </tr>
     <?php endif; ?>
   </table>
 </div>

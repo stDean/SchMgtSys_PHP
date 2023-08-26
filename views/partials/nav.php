@@ -23,7 +23,7 @@ use Core\Session;
             <a class="nav-link <?= urlIs('/schools') ? 'active bg-secondary text-white' : '' ?>" href="/schools">SCHOOLS</a>
           </li>
         <?php endif; ?>
-        <?php if (access('admin')) : ?>
+        <?php if (access('admin') || getUserRank() === "RECEPTION") : ?>
           <li class="nav-item">
             <a class="nav-link <?= urlIs('/users') ? 'active bg-secondary text-white' : '' ?>" href="/users">STAFFS</a>
           </li>

@@ -13,7 +13,6 @@
 <?php
 
 $classes = isset($user['classes']) ? $user['classes'] : null;
-// dd($classes);
 
 require base_path("/views/partials/table.php");
 

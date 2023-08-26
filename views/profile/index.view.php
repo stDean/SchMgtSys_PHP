@@ -7,6 +7,7 @@ require base_path("/views/partials/nav.php");
 
 <div class="container-fluid p-4 shadow mx-auto mt-4" style="max-width: 1000px">
   <?php if ($user) : ?>
+
     <h3 align='center'><?= htmlspecialchars($user['first_name']) ?>'s Profile</h3>
     <div class="row">
       <div class="col-sm-4 col-md-3">
@@ -14,7 +15,7 @@ require base_path("/views/partials/nav.php");
         <h3 class="text-center mt-2"><?= htmlspecialchars($user['first_name']) ?> <?= htmlspecialchars($user['last_name']) ?></h3>
 
         <br>
-        <?php if (canModifyContent($user) || getUserRank() === 'RECEPTION') : ?>
+        <?php if (canModifyContent($user) || (getUserRank() === 'RECEPTION' && $user['role'] === 'student')) : ?>
           <div class="text-center">
             <a href="/profile/edit?user=<?= strtolower($user['user_id']) ?>">
               <button class="btn btn-sm btn-secondary">Edit Profile</button>

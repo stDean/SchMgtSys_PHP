@@ -22,7 +22,7 @@ require base_path("/views/partials/head.php");
         </div>
       <?php endif; ?>
 
-      <input type="email" name="email" placeholder="Email" class="form-control <?= isset($errors['email']) ? 'border border-danger' : '' ?>"  value="<?= old('email'); ?>" autofocus>
+      <input type="email" name="email" placeholder="Email" class="form-control <?= isset($errors['email']) ? 'border border-danger' : '' ?>" value="<?= old('email'); ?>" autofocus>
       <br>
       <input type="password" name="password" placeholder="Password" class="form-control <?= isset($errors['email']) ? 'border border-danger' : '' ?>">
       <br>
@@ -32,7 +32,7 @@ require base_path("/views/partials/head.php");
 </form>
 
 <?php
-
+// dd(password_hash('111111', PASSWORD_BCRYPT));
 require base_path("/views/partials/footer.php");
 
 ?>

@@ -6,14 +6,15 @@ $router->get('/users', "users.php")->only(['auth', 'admin']);
 
 $router->get('/profile', "profile/index.php")->only(['auth']);
 $router->get('/profile/edit', "profile/edit.php")->only(['auth', 'canModify']);
+$router->patch('/profile/edit', "profile/update.php")->only(['auth', 'canModify']);
 $router->get('/profile/delete', "profile/delete.php")->only(['auth', 'canModify']);
 
 $router->get('/classes', "classes/index.php")->only('auth');
 $router->get('/classes/create', "classes/create.php")->only(['auth', 'lectAndAbove']);
 $router->post('/classes/store', "classes/store.php")->only(['auth', 'lectAndAbove']);
-$router->get('/classes/edit', "classes/edit.php")->only(['auth', 'lectAndAbove']);
+$router->get('/class/edit', "classes/edit.php")->only(['auth', 'lectAndAbove']);
 $router->patch('/classes', "classes/update.php")->only(['auth', 'lectAndAbove']);
-$router->get('/classes/delete', "classes/delete.php")->only(['auth', 'lectAndAbove']);
+$router->get('/class/delete', "classes/delete.php")->only(['auth', 'lectAndAbove']);
 $router->delete('/classes', "classes/destroy.php")->only(['auth', 'lectAndAbove']);
 
 $router->get('/single_class', "classes/single_class.php")->only('auth');
@@ -31,6 +32,8 @@ $router->patch('/schools', "schools/update.php")->only(['auth', 'superAdmin']);
 $router->get('/schools/delete', "schools/delete.php")->only(['auth', 'superAdmin']);
 $router->delete('/schools', "schools/destroy.php")->only(['auth', 'superAdmin']);
 $router->get('/switch_school', "schools/switch.php")->only(['auth', 'superAdmin']);
+
+$router->get('/tests', "apptest/index.php")->only(['auth']);
 
 $router->get('/login', "session/create.php")->only('guest');
 $router->post('/session', "session/store.php")->only('guest');

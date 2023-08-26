@@ -5,9 +5,12 @@
 
   ?>
 
-  <a href='/single_class/lecturer?id=<?= $class['class_id'] ?>&tab=lecturer-add' class="btn btn-sm btn-primary ">
-    <i class="fa fa-plus"></i>Add New Lecturer
-  </a>
+  <?php if (access('admin')) : ?>
+    <a href='/single_class/lecturer?id=<?= $class['class_id'] ?>&tab=lecturer-add' class="btn btn-sm btn-primary ">
+      <i class="fa fa-plus"></i>Add New Lecturer
+    </a>
+
+  <?php endif; ?>
 
 </nav>
 

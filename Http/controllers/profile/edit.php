@@ -4,7 +4,6 @@ use Core\App;
 use Core\Database;
 use Core\Session;
 
-$errors = [];
 $db = App::resolve(Database::class);
 $id = isset($_GET['user']) ? $_GET['user'] : Session::getUser_Id();
 
@@ -39,5 +38,5 @@ if ($tab === "classes") {
 view('profile/edit.view.php', [
   'user' => $user,
   'page_tab' => $tab,
-  'errors' => $errors
+  'errors' => Session::get('errors'),
 ]);

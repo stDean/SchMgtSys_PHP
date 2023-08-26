@@ -7,7 +7,7 @@ use Core\Session;
 $db = App::resolve(Database::class);
 $keyword = isset($_GET['search']) ? $_GET['search'] : false;
 
-if (access('admin')) {
+if (access('admin') || getUserRank() === 'RECEPTION') {
   $classes = $db->query('SELECT * FROM classes WHERE school_id=:school_id ORDER BY id DESC', [
     'school_id' => Session::getSchool_Id()
   ])->get();
@@ -57,5 +57,6 @@ if (access('admin')) {
 $newClass = afterSelect($classes, 'user', $db);
 
 view('classes/index.view.php', [
-  'classes' => $newClass
+  'classes' => $newClass,
+  'title' => 'Class'
 ]);
