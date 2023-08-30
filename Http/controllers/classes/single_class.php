@@ -26,9 +26,16 @@ if ($tab === "lecturer") {
       'class_id' => $_GET['id']
     ]
   )->get();
-} else {
+} elseif ($tab === "students") {
   $data = $db->query(
     "SELECT * FROM classes_students WHERE class_id=:class_id ORDER BY id DESC LIMIT $offset, $limit",
+    [
+      'class_id' => $_GET['id']
+    ]
+  )->get();
+} elseif ($tab === "tests") {
+  $data = $db->query(
+    "SELECT * FROM tests WHERE class_id=:class_id ORDER BY id DESC LIMIT $offset, $limit",
     [
       'class_id' => $_GET['id']
     ]
@@ -42,5 +49,6 @@ view('classes/single.class.view.php', [
   'user' => $user,
   'page_tab' => $tab,
   'data' => $results,
-  'pager' => $pager
+  'pager' => $pager,
+  'title' => 'Test'
 ]);

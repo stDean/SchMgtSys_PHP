@@ -4,10 +4,15 @@
       <th></th>
       <th><?= $title ?> Name</th>
       <th>Created By</th>
+      <?php if (isset($page_tab) && $page_tab === 'tests') : ?>
+        <th>Active</th>
+      <?php endif; ?>
       <th>Date</th>
-      <th>
-        Actions
-      </th>
+      <?php if ($_SERVER['REQUEST_URI'] !== '/tests') : ?>
+        <th>
+          Actions
+        </th>
+      <?php endif; ?>
     </tr>
 
     <?php if (isset($classes) && $classes) : ?>
@@ -20,21 +25,32 @@
               <i class="fa fa-chevron-right"></i>
             </a>
           </td>
-          <td><?= $class['class_name'] ?></td>
+          <td><?= $class[strtolower($title) . '_name'] ?></td>
           <td>
             <?= $class['user']['last_name'] ?> <?= $class['user']['first_name'] ?>
           </td>
+          <?php if (isset($page_tab) && $page_tab === 'tests') : ?>
+            <td><?= $class['disabled'] === 0 ? 'Yes' : 'No' ?></td>
+          <?php endif; ?>
           <td><?= formatDate($class['createdAt']) ?></td>
 
-          <?php if (access('lecturer')) : ?>
-            <td>
-              <a href="/<?= strtolower($title) ?>/edit?id=<?= $class['id'] ?>" class="btn btn-sm btn-info text-white">
-                <i class="fa fa-edit"></i>
-              </a>
-              <a href="/<?= strtolower($title) ?>/delete?id=<?= $class['id'] ?>" type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
-            </td>
+          <?php if ($_SERVER['REQUEST_URI'] !== '/tests') : ?>
+            <?php if (access('lecturer')) : ?>
+              <td>
+                <?php
+                if (isset($page_tab) && $page_tab === 'tests') {
+                  $test = strtolower($class['test_name']);
+                }
+                ?>
+                <a href='/<?= isset($page_tab) && $page_tab === "tests"  ? "single_class/test?id={$_GET['id']}&tab=test-edit&test=$test" : "class/edit?id={$class['id']}" ?>' class="btn btn-sm btn-info text-white">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a href='/<?= isset($page_tab) && $page_tab === "tests"  ? "single_class/test?id={$_GET['id']}&tab=test-delete&test={$class['test_name']}" : "class/delete?id={$class['id']}" ?>' type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-alt"></i></a>
+              </td>
+            <?php endif; ?>
           <?php endif; ?>
         </tr>
+
       <?php endforeach; ?>
 
     <?php else : ?>

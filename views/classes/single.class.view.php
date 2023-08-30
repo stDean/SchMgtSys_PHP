@@ -57,6 +57,12 @@ require base_path("/views/partials/nav.php");
       case 'test-add':
         require "tab/test.add.inc.php";
         break;
+      case 'test-edit':
+        require "tab/test.edit.inc.php";
+        break;
+      case 'test-delete':
+        require "tab/test.delete.inc.php";
+        break;
       case 'student-add':
         require "tab/students.add.inc.php";
         break;
@@ -68,7 +74,7 @@ require base_path("/views/partials/nav.php");
 
   <?php else : ?>
     <h4 align='center'>Class does not exist!</h4>
-    <a href="/classes" class="btn btn-primary">
+    <a href="/classes" class="btn btn-sm btn-primary">
       Go back
     </a>
   <?php endif; ?>

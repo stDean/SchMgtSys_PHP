@@ -21,9 +21,9 @@ require base_path("/views/partials/nav.php");
       <?php endif; ?>
 
       <input type="text" name="schoolname" class="form-control  <?= isset($errors['schoolname']) ? 'border border-danger' : '' ?>" placeholder="School Name" value="<?= old('schoolname') ?>" /><br>
-      <input type="submit" value="Create" class="btn btn-primary float-end" />
+      <input type="submit" value="Create" class="btn btn-sm btn-primary float-end" />
       <a href="/schools">
-        <input type="button" value="Cancel" class="btn btn-danger float-start" />
+        <input type="button" value="Cancel" class="btn btn-sm btn-danger float-start" />
       </a>
     </form>
   </div>

@@ -2,14 +2,14 @@
 
 use Core\App;
 use Core\Database;
-
-// $attributes = [
-//   'test_name' => $_POST['test_name'] || null
-// ];
+use Core\Session;
 
 $db = App::resolve(Database::class);
 
-$tests = [];
+
+$tests = $db->query("SELECT * FROM tests WHERE school_id=:school_id ORDER BY id DESC", [
+  'school_id' => Session::getSchool_Id()
+])->get();
 
 $testNUser = afterSelect($tests, 'user', $db);
 

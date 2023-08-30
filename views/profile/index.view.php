@@ -119,7 +119,7 @@ require base_path("/views/partials/nav.php");
 
   <?php else : ?>
     <h4 align='center'>Profile does not exist!</h4>
-    <a href="/users" class="btn btn-primary">
+    <a href="/users" class="btn btn-sm btn-primary">
       Go back
     </a>
   <?php endif; ?>

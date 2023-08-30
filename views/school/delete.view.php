@@ -14,9 +14,9 @@ require base_path("/views/partials/nav.php");
       <h3 class=" mb-2">Are you sure you want to delete?</h3>
 
       <input type="text" name="schoolname" class="form-control  <?= isset($errors['schoolname']) ? 'border border-danger' : '' ?>" placeholder="School Name" value="<?= $school['schoolname'] ?>" /><br>
-      <input type="submit" value="Delete" class="btn btn-danger float-end" />
+      <input type="submit" value="Delete" class="btn btn-sm btn-danger float-end" />
       <a href="/schools">
-        <input type="button" value="Cancel" class="btn btn-success float-start" />
+        <input type="button" value="Cancel" class="btn btn-sm btn-success float-start" />
       </a>
     </form>
   </div>

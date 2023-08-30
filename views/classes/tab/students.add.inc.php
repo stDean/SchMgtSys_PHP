@@ -12,8 +12,8 @@
   <?php endif; ?>
   
   <input class="form-control" name="name" type="text" placeholder="student name" value="<?= old('name') ?>" autofocus><br>
-  <button class="btn btn-success float-end" name="search">Search</button>
-  <a href="/single_class?id=<?= $class['class_id'] ?>&tab=students" class="btn btn-secondary float-start">Cancel</a>
+  <button class="btn btn-sm btn-success float-end" name="search">Search</button>
+  <a href="/single_class?id=<?= $class['class_id'] ?>&tab=students" class="btn btn-sm btn-secondary float-start">Cancel</a>
   <div class="clearfix"> </div>
 </form>
 

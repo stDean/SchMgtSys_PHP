@@ -16,5 +16,4 @@ $db->query('UPDATE classes SET class_name=:class_name WHERE id=:id', [
   'class_name' => $attributes['class_name']
 ]);
 
-header('location: /classes');
-die();
+redirect('/classes');
