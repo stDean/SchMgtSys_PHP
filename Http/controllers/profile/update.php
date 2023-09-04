@@ -23,12 +23,12 @@ if ($attributes['password'] === "") {
   unset($attributes['cfPassword']);
 }
 
-
 if ($attributes['image'] && $attributes['image']['tmp_name']) {
-  $attributes['image'] = makeImagePath($attributes['image']);
+  $attributes['image'] = uploadImage($attributes['image']);
 } else {
   $attributes['image'] = null;
 }
+
 
 $userValidate = ProfileForm::validate($attributes);
 $updatedUser = (new UpdateProfile)->attempt($attributes);

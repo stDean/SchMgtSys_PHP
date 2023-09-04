@@ -10,7 +10,9 @@
   <title>Home</title>
 
   <style>
-    .fa {
+    .fa-chevron-right,
+    .fa-chevron-left,
+    .fa-plus {
       margin-right: 4px;
     }
   </style>

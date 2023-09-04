@@ -1,22 +1,19 @@
 <?php
 
 use Core\App;
-use Core\Auth\QuestionAuth;
+use Core\Auth\UpdateQuestion;
 use Core\Database;
 use Http\Form\QuestionForm;
 
+$db = App::resolve(Database::class);
+
 $attributes = [
   'question' => $_POST['question'],
-  'question_type' => isset($_GET['type']) ? $_GET['type'] : 'theory',
   'choices' => NULL,
-  'correct_answer' => isset($_GET['type']) ? $_POST['correct_answer'] : NULL,
-  'test_id' => $_GET['id'],
+  'correct_answer' => $_GET['type'] === 'german' ? $_POST['correct_answer'] : NULL,
   'image' => $_FILES['image'],
   'comment' => $_POST['comment'] !== "" ? $_POST['comment'] : NULL,
 ];
-
-
-$db = App::resolve(Database::class);
 
 if ($attributes['image'] && $attributes['image']['tmp_name']) {
   $attributes['image'] = uploadImage($attributes['image']);
@@ -25,10 +22,6 @@ if ($attributes['image'] && $attributes['image']['tmp_name']) {
 }
 
 $form = QuestionForm::validate($attributes);
-$storedQuestion = (new QuestionAuth)->attempt($attributes);
+$updateQuestion = (new UpdateQuestion)->attempt($attributes);
 
-if (!$storedQuestion) {
-  $form->error('question', 'Question already exists.')->throw();
-}
-
-redirect('/single_test?id=' . $attributes['test_id']);
+redirect('/single_test/editquestion?id=' . $_GET['id'] . '&tab=edit&type=' . $_GET['type'] . '&quesId=' . $_GET['quesId']);

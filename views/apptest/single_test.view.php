@@ -34,14 +34,8 @@ require base_path("/views/partials/nav.php");
     <?php
 
     switch ($page_tab) {
-      case 'add-multiple':
-        require "tab/add-multiple.inc.php";
-        break;
-      case 'add-theory':
+      case 'add':
         require "tab/add-theory.inc.php";
-        break;
-      case 'add-german':
-        require "tab/add-german.inc.php";
         break;
       case 'edit':
         require "tab/edit.inc.php";

@@ -39,8 +39,13 @@ $router->get('/switch_school', "schools/switch.php")->only(['auth', 'superAdmin'
 
 $router->get('/tests', "apptest/index.php")->only(['auth']);
 $router->get('/single_test', "apptest/single_test.php")->only(['auth']);
-$router->get('/single_test/addquestion', "apptest/tab/add.php")->only(['auth']);
-$router->post('/single_test/addquestion', "apptest/tab/store.php")->only(['auth']);
+$router->get('/single_test/addquestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
+$router->post('/single_test/addquestion', "apptest/tab/store.php")->only(['auth', 'lectAndAbove']);
+$router->get('/single_test/editquestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
+$router->patch('/single_test/editquestion', "apptest/tab/update.php")->only(['auth', 'lectAndAbove']);
+$router->get('/single_test/deletequestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
+$router->delete('/single_test/deletequestion', "apptest/tab/destroy.php")->only(['auth', 'lectAndAbove']);
+
 
 $router->get('/login', "session/create.php")->only('guest');
 $router->post('/session', "session/store.php")->only('guest');
