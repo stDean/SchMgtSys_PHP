@@ -36,6 +36,7 @@ use Core\Session;
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/classes') || urlIs('/single_class') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/tests') || urlIs('/single_test') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS</a>
         </li>

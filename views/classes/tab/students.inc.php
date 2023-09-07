@@ -5,9 +5,11 @@
 
   ?>
 
-  <a href='/single_class/student?id=<?= $class['class_id'] ?>&tab=student-add' class="btn btn-sm btn-primary ">
-    <i class="fa fa-plus"></i>Add New Student
-  </a>
+  <?php if (access('admin')) : ?>
+    <a href='/single_class/student?id=<?= $class['class_id'] ?>&tab=student-add' class="btn btn-sm btn-primary ">
+      <i class="fa fa-plus"></i>Add New Student
+    </a>
+  <?php endif; ?>
 </nav>
 
 <div class="card-group justify-content-center">

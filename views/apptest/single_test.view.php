@@ -7,29 +7,43 @@ require base_path("/views/partials/nav.php");
 
 <div class="container-fluid p-4 shadow mx-auto mt-4" style="max-width: 1000px">
   <?php if ($test) : ?>
-    <div class="row">
-      <h3 align='center' style="margin-bottom: 15px;"><?= htmlspecialchars($test['test_name']) ?></h3>
-      <table class="table table-striped">
+    <!-- <div class="row"> -->
+    <h3 align='center' style="margin-bottom: 15px;"><?= htmlspecialchars($test['test_name']) ?></h3>
+    <table class="table">
+      <thead>
         <tr>
-          <th>Created By:
-          <th>
-          <td><?= htmlspecialchars($user['first_name']) ?> <?= htmlspecialchars($user['last_name']) ?></td>
-          </th>
-          </th>
-
-          <th>Date Created:
-          <th>
-          <td><?= formatDate($test['createdAt']) ?></td>
-          </th>
-          </th>
-
-          <th>Active:</th>
-          <th>
-          <td><?= $test['disabled'] === 0 ? 'Yes' : 'No' ?></td>
-          </th>
+          <th>Created By</th>
+          <th>Date Created:</th>
+          <th>Active</th>
+          <th>Action</th>
         </tr>
-      </table>
-    </div>
+      </thead>
+      <tbody>
+        <tr>
+          <td><?= htmlspecialchars($user['first_name']) ?> <?= htmlspecialchars($user['last_name']) ?></td>
+          <td><?= formatDate($test['createdAt']) ?></td>
+          <td>
+            <?= $test['disabled'] ? 'No' : 'Yes' ?>
+          </td>
+          <?php
+          $btnText = 'Disable';
+          $getVar = "disable=true";
+          $btnColor = "btn-warning";
+          if ($test['disabled']) {
+            $btnColor = "btn-success";
+            $btnText = 'Publish';
+            $getVar = "disable=false";
+          }
+          ?>
+          <td>
+            <a href="/single_test?id=<?= $test['test_id'] ?>&<?= $getVar ?>">
+              <button class="btn btn-sm <?= $btnColor ?>"><b><?= $btnText ?> Test</b></button>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- </div> -->
 
     <?php
 
@@ -51,10 +65,16 @@ require base_path("/views/partials/nav.php");
     ?>
 
     <hr />
-    <div class="float-end">
-      <a href='/single_class?id=<?= $test['class_id'] ?>&tab=tests' class="btn btn-sm btn-primary ">
-        View Class
+    <div>
+      <a href='<?= $_SERVER['HTTP_REFERER'] ?>' class="btn btn-sm btn-secondary ">
+        Back
       </a>
+
+      <div class="float-end">
+        <a href='/single_class?id=<?= $test['class_id'] ?>&tab=tests' class="btn btn-sm btn-primary ">
+          View Class
+        </a>
+      </div>
     </div>
     <div class="clearfix"></div>
   <?php else : ?>

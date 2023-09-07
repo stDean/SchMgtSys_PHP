@@ -7,3 +7,12 @@
 
   ?>
 </nav>
+
+<?php
+
+$title = 'Test';
+$classes = $user['tests'];
+
+require base_path("/views/partials/table.php");
+
+?>

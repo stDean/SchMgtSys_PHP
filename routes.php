@@ -17,12 +17,12 @@ $router->patch('/classes', "classes/update.php")->only(['auth', 'lectAndAbove'])
 $router->get('/class/delete', "classes/delete.php")->only(['auth', 'lectAndAbove']);
 $router->delete('/classes', "classes/destroy.php")->only(['auth', 'lectAndAbove']);
 
-$router->get('/single_class', "classes/single_class.php")->only('auth');
+$router->get('/single_class', "classes/single_class.php")->only(['auth']);
 $router->get('/single_class/lecturer', "classes/tab/create.php")->only(['auth', 'lectAndAbove']);
 $router->post('/single_class/lecturer', "classes/tab/add.php")->only(['auth', 'lectAndAbove']);
 $router->delete('/single_class', "classes/tab/destroy.php")->only(['auth', 'lectAndAbove']);
-$router->get('/single_class/student', "classes/tab/create.php")->only('auth');
-$router->post('/single_class/student', "classes/tab/add.php")->only('auth');
+$router->get('/single_class/student', "classes/tab/create.php")->only(['auth', 'lectAndAbove']);
+$router->post('/single_class/student', "classes/tab/add.php")->only(['auth', 'lectAndAbove']);
 $router->get('/single_class/test', "classes/tab/create.php")->only(['auth', 'lectAndAbove']);
 $router->post('/single_class/test', "classes/tab/test.store.php")->only(['auth', 'lectAndAbove']);
 $router->patch('/single_class', "classes/tab/test.update.php")->only(['auth', 'lectAndAbove']);
@@ -38,13 +38,14 @@ $router->delete('/schools', "schools/destroy.php")->only(['auth', 'superAdmin'])
 $router->get('/switch_school', "schools/switch.php")->only(['auth', 'superAdmin']);
 
 $router->get('/tests', "apptest/index.php")->only(['auth']);
-$router->get('/single_test', "apptest/single_test.php")->only(['auth']);
+$router->get('/single_test', "apptest/single_test.php")->only(['auth', 'lectAndAbove']);
 $router->get('/single_test/addquestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
 $router->post('/single_test/addquestion', "apptest/tab/store.php")->only(['auth', 'lectAndAbove']);
 $router->get('/single_test/editquestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
 $router->patch('/single_test/editquestion', "apptest/tab/update.php")->only(['auth', 'lectAndAbove']);
 $router->get('/single_test/deletequestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
 $router->delete('/single_test/deletequestion', "apptest/tab/destroy.php")->only(['auth', 'lectAndAbove']);
+$router->get('/taketest', "apptest/take_test.php")->only(['auth']);
 
 
 $router->get('/login', "session/create.php")->only('guest');

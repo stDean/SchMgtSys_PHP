@@ -5,6 +5,15 @@
   <form method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="DELETE">
 
+    <?php if (!empty($errors)) : ?>
+      <div class="alert alert-warning alert-dismissible fade show pr-0" role="alert">
+        <strong>Errors</strong><br>
+        <?php foreach ($errors as $key => $val) : ?>
+          <small><?= $val ?></small> <br>
+        <?php endforeach; ?>
+        <small type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></small>
+      </div>
+    <?php endif; ?>
 
     <label class="mb-2" for="question">Question:</label>
     <textarea readonly class="form-control" name="question" id="question"><?= $question['question'] ?></textarea>

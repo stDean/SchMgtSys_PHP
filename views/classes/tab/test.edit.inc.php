@@ -40,7 +40,7 @@
         </div>
 
         <input type="submit" value="Edit" class="btn btn-sm btn-primary float-end" />
-        <a href="/single_class?id=<?= $_GET['id'] ?>&tab=tests">
+        <a href="<?= $_SERVER['HTTP_REFERER'] ?>">
           <input type="button" value="Cancel" class="btn btn-sm btn-danger float-start" />
         </a>
       </form>

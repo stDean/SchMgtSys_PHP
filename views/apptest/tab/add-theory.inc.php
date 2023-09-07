@@ -34,22 +34,55 @@
   <?php if (isset($_GET['type']) && $_GET['type'] === 'multiple') : ?>
     <div class="card mb-4">
       <div class="card-header bg-secondary text-white">
-        <b>Options</b> <button class="btn btn-sm float-end btn-primary"><i class="fa fa-plus"></i>Add Choice</button>
+        <b>Options</b>
+        <button class="btn btn-sm float-end btn-primary" onclick="addChoice()" type="button"><i class="fa fa-plus"></i>Add Choice</button>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
-            <span>A</span> <input type="text" class="form-control" name="choice1" placeholder="Type your answer here">
-          </span>
-          <label style="cursor: pointer;"><input type="radio" value="A" name="correct_answer"> Correct answer</label>
-        </li>
 
-        <li class="list-group-item">
-          <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
-            <span>B</span> <input type="text" class="form-control" name="choice1" placeholder="Type your answer here">
-          </span>
-          <label style="cursor: pointer;"><input type="radio" value="B" name="correct_answer"> Correct answer</label>
-        </li>
+
+      <?php
+      // $cho = json_decode(old('choices'));
+      // dump($cho->A) 
+      ?>
+      <ul class="list-group list-group-flush choice-list">
+        <?php if (!empty(old('choices'))) : ?>
+          <?php
+          //check for multiple choice answers
+          $num = 0;
+          $letters = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J'];
+
+          foreach ($_SESSION['_flash']['old'] as $key => $val) {
+            if (strstr($key, 'choice')) {
+              $value = json_decode($val);
+              foreach ($value as $key => $val) {
+          ?>
+                <li class="list-group-item">
+                  <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+                    <span><?= $letters[$num] ?></span> <input type="text" class="form-control" value="<?= $val ?>" name="choice<?= $num ?>" placeholder="Type your answer here">
+                  </span>
+                  <label style="cursor: pointer;"><input type="radio" <?= $letters[$num] == old('correct_answer') ? 'checked' : ''; ?> value="<?= $letters[$num] ?>" name="correct_answer"> Correct answer</label>
+                </li>
+          <?php
+                $num++;
+              }
+            }
+          }
+          ?>
+        <?php else : ?>
+          <li class="list-group-item">
+            <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+              <span>A</span> <input type="text" class="form-control" name="choice0" placeholder="Type your answer here">
+            </span>
+            <label style="cursor: pointer;"><input type="radio" value="A" name="correct_answer"> Correct answer</label>
+          </li>
+
+          <li class="list-group-item">
+            <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+              <span>B</span> <input type="text" class="form-control" name="choice1" placeholder="Type your answer here">
+            </span>
+            <label style="cursor: pointer;"><input type="radio" value="B" name="correct_answer"> Correct answer</label>
+          </li>
+        <?php endif; ?>
+
       </ul>
     </div>
   <?php endif; ?>
@@ -62,3 +95,21 @@
 
   <button class="btn btn-sm btn-success float-end">Save Question</button>
 </form>
+
+<script>
+  const letters = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J'];
+
+  function addChoice() {
+    const choices = document.querySelector('.choice-list')
+    if (choices.children.length < letters.length) {
+      choices.innerHTML += `
+        <li class="list-group-item">
+          <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+          <span>${letters[choices.children.length]}</span> <input type="text" class="form-control" name="choice${choices.children.length}" placeholder="Type your answer here">
+          </span>
+          <label style="cursor: pointer;"><input type="radio" value="${letters[choices.children.length]}" name="correct_answer"> Correct answer</label>
+        </li>
+      `
+    }
+  }
+</script>

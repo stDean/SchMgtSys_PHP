@@ -15,13 +15,26 @@ $attributes = [
   'comment' => $_POST['comment'] !== "" ? $_POST['comment'] : NULL,
 ];
 
-
 $db = App::resolve(Database::class);
 
 if ($attributes['image'] && $attributes['image']['tmp_name']) {
   $attributes['image'] = uploadImage($attributes['image']);
 } else {
   $attributes['image'] = NULL;
+}
+
+if ($attributes['question_type'] === 'multiple') {
+  $num = 0;
+  $letters = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J'];
+  $choiceArr = [];
+
+  foreach ($_POST as $key => $val) {
+    if (strstr($key, 'choice')) {
+      $choiceArr[$letters[$num]] = $val;
+      $num++;
+    }
+  }
+  $attributes['choices'] = json_encode($choiceArr);
 }
 
 $form = QuestionForm::validate($attributes);

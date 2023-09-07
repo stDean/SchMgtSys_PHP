@@ -23,6 +23,20 @@ $questions = $db->query("SELECT * FROM test_questions WHERE test_id=:test_id ORD
   'test_id' => $_GET['id']
 ])->get();
 
+if (isset($_GET['disable'])) {
+  if ($_GET['disable'] === 'true') {
+    $disable = 1;
+  } elseif ($_GET['disable'] === 'false') {
+    $disable = 0;
+  }
+
+  $db->query('UPDATE tests SET disabled=:disabled WHERE test_id=:test_id LIMIT 1', [
+    'test_id' => $_GET['id'],
+    'disabled' => $disable
+  ]);
+  header('location: /single_test?id=' . $test['test_id']);
+}
+
 view('apptest/single_test.view.php', [
   'test' => $test,
   'pager' => $pager,

@@ -14,7 +14,7 @@ require base_path("/views/partials/nav.php");
   </nav>
 
   <?php
-  
+
   $classes = $tests;
 
   require base_path("/views/partials/table.php");

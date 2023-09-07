@@ -9,7 +9,6 @@ $db = App::resolve(Database::class);
 
 $attributes = [
   'test_name' => $_POST['test_name'],
-  'disabled' => 0
 ];
 
 $form = TestForm::validate($attributes);

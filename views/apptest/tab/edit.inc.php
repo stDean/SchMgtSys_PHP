@@ -41,6 +41,62 @@
       </div>
     <?php endif; ?>
 
+    <?php if (isset($_GET['type']) && $_GET['type'] === 'multiple') : ?>
+      <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+          <b>Options</b>
+          <button class="btn btn-sm float-end btn-primary" onclick="addChoice()" type="button"><i class="fa fa-plus"></i>Add Choice</button>
+        </div>
+
+
+        <?php
+        // $cho = json_decode(old('choices'));
+        // dump($cho->A) 
+        ?>
+        <ul class="list-group list-group-flush choice-list">
+          <?php if (!empty(old('choices'))) : ?>
+            <?php
+            //check for multiple choice answers
+            $num = 0;
+            $letters = ['A', 'B', 'C', 'D', 'F', 'G', 'H', 'I', 'J'];
+
+            foreach ($_SESSION['_flash']['old'] as $key => $val) {
+              if (strstr($key, 'choice')) {
+                $value = json_decode($val);
+                foreach ($value as $key => $val) {
+            ?>
+                  <li class="list-group-item">
+                    <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+                      <span><?= $letters[$num] ?></span> <input type="text" class="form-control" value="<?= $val ?>" name="choice<?= $num ?>" placeholder="Type your answer here">
+                    </span>
+                    <label style="cursor: pointer;"><input type="radio" <?= $letters[$num] == old('correct_answer') ? 'checked' : ''; ?> value="<?= $letters[$num] ?>" name="correct_answer"> Correct answer</label>
+                  </li>
+            <?php
+                  $num++;
+                }
+              }
+            }
+            ?>
+          <?php else : ?>
+            <?php
+            $choices = json_decode($question['choices']);
+            $num = 0;
+            ?>
+            <?php foreach ($choices as $key => $choice) : ?>
+              <li class="list-group-item">
+                <span style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px">
+                  <span><?= $key ?></span> <input type="text" class="form-control" name="choice<?= $num ?>" value="<?= $choice ?>">
+                </span>
+                <label style="cursor: pointer;"><input type="radio" value="<?= $key ?>" name="correct_answer" <?= $question['correct_answer'] === $key ? 'checked' : ''; ?>> Correct answer</label>
+              </li>
+              <?php $num++; ?>
+            <?php endforeach; ?>
+          <?php endif; ?>
+
+        </ul>
+      </div>
+    <?php endif; ?>
+
     <a href="/single_test?id=<?= $test['test_id'] ?>">
       <button type="button" class="btn btn-sm btn-secondary">
         <i class="fa fa-chevron-left"></i>Back

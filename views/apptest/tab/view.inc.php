@@ -1,12 +1,11 @@
-<nav class="navbar p-0">
-  <center>
+<nav class="navbar">
+  <div>
     <h3>Test Questions</h3>
-    <p>
+    <p style="margin: 5px;">
       <b>Total Question:</b>
       <?= $total_questions ?>
     </p>
-
-  </center>
+  </div>
 
   <?php if (access('lecturer')) : ?>
     <div class="btn-group">
@@ -53,23 +52,45 @@
 
         <p class="card-text m-0"><?= $question['comment'] ?></p>
 
-        <?php if ($question['question_type'] === '') : ?>
+        <?php if ($question['question_type'] === 'multiple') :  ?>
+          <div class="card my-2" style="width: 25rem;">
+            <div class="card-header">
+              Options
+            </div>
+            <ul class="list-group list-group-flush">
+              <?php $choices = json_decode($question['choices']); ?>
+
+              <?php foreach ($choices as $key => $choice) : ?>
+                <li class="list-group-item">
+                  <?= $key ?>. <?= $choice ?>
+                  <?php if ($question['correct_answer'] === $key) : ?>
+                    <i class="fa fa-check float-end"></i>
+                  <?php endif; ?>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
+
+        <?php if ($question['question_type'] === 'german' || $question['question_type'] === 'multiple') : ?>
           <p class="card-text m-0"><b>Answer: </b><?= $question['correct_answer'] ?></p>
         <?php endif; ?>
 
         <?php if (access('lecturer')) : ?>
-          <p class="float-end m-0">
-            <a href="/single_test/editquestion?id=<?= $question['test_id'] ?>&tab=edit&type=<?= $question['question_type'] ?>&quesId=<?= $question['id'] ?>">
-              <button class="btn btn-sm btn-success">
-                <i class="fa fa-edit"></i>
-              </button>
-            </a>
-            <a href="/single_test/deletequestion?id=<?= $question['test_id'] ?>&tab=delete&type=<?= $question['question_type'] ?>&quesId=<?= $question['id'] ?>">
-              <button class="btn btn-sm btn-danger">
-                <i class="fa fa-trash"></i>
-              </button>
-            </a>
-          </p>
+          <?php if ($test['editable']) : ?>
+            <p class="float-end m-0">
+              <a href="/single_test/editquestion?id=<?= $question['test_id'] ?>&tab=edit&type=<?= $question['question_type'] ?>&quesId=<?= $question['id'] ?>">
+                <button class="btn btn-sm btn-success">
+                  <i class="fa fa-edit"></i>
+                </button>
+              </a>
+              <a href="/single_test/deletequestion?id=<?= $question['test_id'] ?>&tab=delete&type=<?= $question['question_type'] ?>&quesId=<?= $question['id'] ?>">
+                <button class="btn btn-sm btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </a>
+            </p>
+          <?php endif; ?>
         <?php endif; ?>
       </div>
     </div>

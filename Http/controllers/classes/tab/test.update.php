@@ -12,7 +12,7 @@ $attributes = [
 $db = App::resolve(Database::class);
 $form = TestForm::validate($attributes);
 
-$db->query('UPDATE tests SET test_name=:test_name, disabled=:disabled WHERE id=:id', [
+$db->query('UPDATE tests SET test_name=:test_name WHERE id=:id', [
   'id' => $_POST['id'],
   'test_name' => $attributes['test_name'],
   'disabled' => $attributes['disabled']
