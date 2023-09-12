@@ -1,5 +1,7 @@
 <?php
 
+use Core\Session;
+
 require base_path("/views/partials/head.php");
 require base_path("/views/partials/nav.php");
 
@@ -31,6 +33,27 @@ require base_path("/views/partials/nav.php");
       </table>
     </div>
 
+    <div class="container-fluid text-center">
+      <div class="text-danger"><b><?= getAnsweredPercentage($test['test_id'], Session::getUser_id()) ?>% answered</b></div>
+      <?php $percentage = getAnsweredPercentage($test['test_id'], Session::getUser_id()); ?>
+      <div class="bg-primary" style="height: 5px; width: <?= getAnsweredPercentage($answers, $questions) ?>%;">
+      </div>
+      <?php if ($answeredTest && $answeredTest['submitted']) : ?>
+        <p class="text-success">This test has been submitted.</p>
+      <?php else : ?>
+        <p class="text-warning m-0">
+          This test has not been submitted.
+        </p>
+        <a href="/taketest?id=<?= $_GET['id'] ?>&submit=true">
+          <button class="btn btn-sm btn-primary float-end" onclick="submitTest(event)">Submit Test</button>
+        </a>
+        <div class="clearfix"></div>
+      <?php endif; ?>
+      <div>
+      </div>
+    </div>
+
+
     <nav class="navbar">
       <h3>Test Questions</h3>
       <p><b>Total Question:</b> <?= $total_questions ?></p>
@@ -45,6 +68,16 @@ require base_path("/views/partials/nav.php");
 
     <?php if ($questions) : ?>
       <form method="POST">
+        <?php if (!empty($errors)) : ?>
+          <div class="alert alert-warning alert-dismissible fade show pr-0" role="alert">
+            <strong>Errors</strong><br>
+            <?php foreach ($errors as $key => $val) : ?>
+              <small><?= $val ?></small> <br>
+            <?php endforeach; ?>
+            <small type="button" class="btn-close p-2" data-bs-dismiss="alert" aria-label="Close"></small>
+          </div>
+        <?php endif; ?>
+
         <?php $num = 0; ?>
         <?php foreach ($questions as $question) : $num++ ?>
           <div class="card my-2">
@@ -63,11 +96,11 @@ require base_path("/views/partials/nav.php");
               <p class="card-text m-0"><?= $question['comment'] ?></p>
 
               <?php if ($question['question_type'] === 'theory') :  ?>
-                <textarea class="form-control mt-2" name="<?= $question['id'] ?>" placeholder="enter answer here"></textarea>
+                <textarea class="form-control mt-2" name="<?= $question['id'] ?>" placeholder="enter answer here" <?= $answeredTest && $answeredTest['submitted'] ? "disabled" : "" ?>><?= getAnswer($answers, $question['id']) ?></textarea>
               <?php endif ?>
 
               <?php if ($question['question_type'] === 'german') :  ?>
-                <input class="form-control mt-2" type="text" name="<?= $question['id'] ?>" placeholder="enter answer here">
+                <input class="form-control mt-2" type="text" name="<?= $question['id'] ?>" placeholder="enter answer here" value="<?= getAnswer($answers, $question['id']) ?>" <?= $answeredTest && $answeredTest['submitted'] ? "disabled" : "" ?>>
               <?php endif ?>
 
 
@@ -83,7 +116,15 @@ require base_path("/views/partials/nav.php");
                       <label for="choice<?= $key ?>">
                         <li class="list-group-item" style="cursor: pointer;">
                           <?= $key ?>. <?= $choice ?>
-                          <input type="radio" name="<?= $question['id'] ?>" value="<?= $key ?>" class="float-end" style="transform: scale(1.3); margin-top: 6px;" id="choice<?= $key ?>" />
+
+                          <?php if ($answeredTest && !$answeredTest['submitted']) : ?>
+                            <input type="radio" name="<?= $question['id'] ?>" value="<?= $key ?>" class="float-end" style="transform: scale(1.3); margin-top: 6px;" id="choice<?= $key ?>" <?= getAnswer($answers, $question['id']) === $key ? "checked" : '' ?> />
+
+                          <?php else : ?>
+                            <?php if (getAnswer($answers, $question['id']) === $key) : ?>
+                              <i class="fa fa-check float-end mt-1"></i>
+                            <?php endif; ?>
+                          <?php endif; ?>
                         </li>
                       </label>
                     <?php endforeach; ?>
@@ -95,9 +136,14 @@ require base_path("/views/partials/nav.php");
           </div>
         <?php endforeach; ?>
 
-        <center class="mt-3">
-          <button class="btn btn-success">Submit Answers</button>
-        </center>
+        <?php $pager->display(); ?>
+
+        <?php if ($answeredTest && $answeredTest['submitted']) : ?>
+        <?php else : ?>
+          <center class="mt-3">
+            <button class="btn btn-success">Save Answers</button>
+          </center>
+        <?php endif; ?>
 
       </form>
 
@@ -113,8 +159,32 @@ require base_path("/views/partials/nav.php");
   <?php endif; ?>
 </div>
 
+
+
 <?php
 
 require base_path("/views/partials/footer.php");
 
 ?>
+
+<script>
+  let percent = '<?= $percentage ?>';
+
+  function submitTest(e) {
+    const getRes = confirm('Are you sure you want to submit test?');
+
+    if (!getRes) {
+      e.preventDefault();
+      return;
+    }
+
+    if (percent < 100) {
+      const confirmRes = confirm(`You have answered ${percent}% of questions, are you sure you don't want to complete teh test before submitting?`);
+
+      if (!confirmRes) {
+        e.preventDefault();
+        return;
+      }
+    }
+  }
+</script>

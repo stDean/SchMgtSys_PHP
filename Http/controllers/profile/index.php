@@ -69,8 +69,6 @@ if ($tab === "classes") {
   }
 
   $user['tests'] = afterSelect($tests, 'user', $db);
-
-  // dump($tests);
 }
 
 if (access('reception') || canModifyContent($user)) {

@@ -18,21 +18,25 @@ use Core\Session;
         <li class="nav-item">
           <a class="nav-link <?= $_SERVER["REQUEST_URI"] === '/' ? 'active bg-secondary text-white' : '' ?>" aria-current="page" href="/">DASHBOARD</a>
         </li>
+
         <?php if (access('super_admin')) : ?>
           <li class="nav-item">
             <a class="nav-link <?= urlIs('/schools') ? 'active bg-secondary text-white' : '' ?>" href="/schools">SCHOOLS</a>
           </li>
         <?php endif; ?>
+
         <?php if (access('admin') || getUserRank() === "RECEPTION") : ?>
           <li class="nav-item">
             <a class="nav-link <?= urlIs('/users') ? 'active bg-secondary text-white' : '' ?>" href="/users">STAFFS</a>
           </li>
         <?php endif; ?>
+
         <?php if (access('reception')) : ?>
           <li class="nav-item">
             <a class="nav-link <?= urlIs('/students') ? 'active bg-secondary text-white' : '' ?>" href="/students">STUDENTS</a>
           </li>
         <?php endif; ?>
+
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/classes') || urlIs('/single_class') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
         </li>
@@ -40,6 +44,16 @@ use Core\Session;
         <li class="nav-item">
           <a class="nav-link <?= urlIs('/tests') || urlIs('/single_test') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS</a>
         </li>
+
+        <?php if (access('lecturer')) : ?>
+          <li class="nav-item">
+            <a class="nav-link <?= urlIs('/mark_test') ? 'active bg-secondary text-white' : '' ?>" href="/mark_test">MARK TEST</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link <?= urlIs('/marked_tests') ? 'active bg-secondary text-white' : '' ?>" href="/marked_tests">MARKED TESTS</a>
+          </li>
+        <?php endif; ?>
       </ul>
 
       <ul class="navbar-nav ms-auto">

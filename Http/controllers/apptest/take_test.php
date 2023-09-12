@@ -1,12 +1,14 @@
 <?php
 
 use Core\App;
+use Core\Auth\SubmitForMark;
 use Core\Database;
 use Core\Pagination;
+use Core\Session;
 
 $db = App::resolve(Database::class);
 
-$limit = 4;
+$limit = 2;
 $pager = new Pagination($limit, 1, '&');
 $offset = $pager->offset;
 $pager = new Pagination($limit, 1, '&');
@@ -25,7 +27,11 @@ $user = $db->query('SELECT * FROM users WHERE user_id=:user_id', [
   'user_id' => $test['user_id'] ?? false
 ])->find();
 
-$questions = $db->query("SELECT * FROM test_questions WHERE test_id=:test_id ORDER BY id", [
+$questions = $db->query("SELECT * FROM test_questions WHERE test_id=:test_id ORDER BY id LIMIT $offset, $limit", [
+  'test_id' => $_GET['id']
+])->get();
+
+$allQuestions = $db->query("SELECT id FROM test_questions WHERE test_id=:test_id", [
   'test_id' => $_GET['id']
 ])->get();
 
@@ -38,6 +44,35 @@ if ($test) {
   }
 }
 
+$answers = $db->query(
+  'SELECT correct_answer, question_id FROM answers WHERE user_id = :user_id AND test_id = :test_id',
+  [
+    'user_id' => Session::getUser_Id(),
+    'test_id' => $_GET['id'],
+  ]
+)->get();
+
+$answeredTest = $db->query(
+  'SELECT * FROM answered_tests WHERE user_id = :user_id AND test_id = :test_id',
+  [
+    'user_id' => Session::getUser_Id(),
+    'test_id' => $_GET['id'],
+  ]
+)->find();
+
+if (isset($_GET['submit'])) {
+  $att2 = [
+    'user_id' => Session::getUser_Id(),
+    'test_id' => $_GET['id']
+  ];
+  $att2['submitted'] = 1;
+
+  $submitForMark = (new SubmitForMark)->attempt($att2);
+
+  header('location: /taketest?id=' . $_GET['id']);
+}
+
+
 if (getUserRank() === "STUDENT") {
   view('apptest/take_test.view.php', [
     'test' => $test,
@@ -45,7 +80,10 @@ if (getUserRank() === "STUDENT") {
     'user' => $user,
     'page_tab' => 'view',
     'questions' => $questions,
-    'total_questions' => count($questions)
+    'total_questions' => count($allQuestions),
+    'errors' => Session::get('errors'),
+    'answers' => $answers,
+    'answeredTest' => $answeredTest
   ]);
 } else {
   abort('403');

@@ -46,6 +46,9 @@ $router->patch('/single_test/editquestion', "apptest/tab/update.php")->only(['au
 $router->get('/single_test/deletequestion', "apptest/tab/add.php")->only(['auth', 'lectAndAbove']);
 $router->delete('/single_test/deletequestion', "apptest/tab/destroy.php")->only(['auth', 'lectAndAbove']);
 $router->get('/taketest', "apptest/take_test.php")->only(['auth']);
+$router->post('/taketest', "apptest/store.answer.php")->only(['auth']);
+$router->get('/mark_test', "apptest/mark.php")->only(['auth', 'lectAndAbove']);
+$router->get('/marked_tests', "apptest/marked.php")->only(['auth', 'lectAndAbove']);
 
 
 $router->get('/login', "session/create.php")->only('guest');
