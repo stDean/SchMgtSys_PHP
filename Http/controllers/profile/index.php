@@ -58,18 +58,41 @@ if ($tab === "classes") {
 
   if (isset($classId)) {
     $strId = "'" . implode("','", $classId) . "'";
+    $marked = [];
+
     if (getUserRank() === "STUDENT") {
       $query = "SELECT * FROM tests WHERE class_id IN ($strId) AND disabled = 0";
+      $tests = $db->query($query)->get();
+
+      foreach ($tests as $key => $test) {
+        $res = $db->query("SELECT * FROM answered_tests WHERE test_id=:test_id AND submitted = 1 AND marked = 1 LIMIT 1", [
+          'test_id' => $test['test_id']
+        ])->get();
+
+        if (is_array($res)) {
+          $test = $db->query("SELECT * FROM tests WHERE test_id=:test_id ", [
+            'test_id' => $test['test_id']
+          ])->find();
+          if (isset($res[0])) {
+            $res[0]['test'] = $test;
+          }
+          $marked = array_merge($marked, $res);
+        }
+      }
+
+      $user['tests'] = afterSelect($marked, 'user', $db);
     } else {
       $query = "SELECT * FROM tests WHERE class_id IN ($strId)";
+      $tests = $db->query($query)->get();
+
+      $user['tests'] = afterSelect($tests, 'user', $db);
     }
-    $tests = $db->query($query)->get();
   } else {
     $tests = [];
   }
-
-  $user['tests'] = afterSelect($tests, 'user', $db);
 }
+
+// dd($user);
 
 if (access('reception') || canModifyContent($user)) {
   view('profile/index.view.php', [

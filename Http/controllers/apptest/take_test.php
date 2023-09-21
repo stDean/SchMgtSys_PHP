@@ -72,7 +72,6 @@ if (isset($_GET['submit'])) {
   header('location: /taketest?id=' . $_GET['id']);
 }
 
-
 if (getUserRank() === "STUDENT") {
   view('apptest/take_test.view.php', [
     'test' => $test,

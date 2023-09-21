@@ -1,37 +1,41 @@
-<nav class="navbar">
-  <div>
-    <h3>Test Questions</h3>
-    <p style="margin: 5px;">
-      <b>Total Question:</b>
-      <?= $total_questions ?>
-    </p>
-  </div>
+<?php if ($test['disabled']) : ?>
 
-  <?php if (access('lecturer')) : ?>
-    <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Add
-      </button>
-      <ul class="dropdown-menu  dropdown-menu-end">
-        <li><a class="dropdown-item" href="/single_test/addquestion?id=<?= $test['test_id'] ?>&type=multiple&tab=add">
-            Add Multiple choice Question</a>
-        </li>
-        <li><a class="dropdown-item" href="/single_test/addquestion?id=<?= $test['test_id'] ?>&type=german&tab=add">
-            Add German Question</a>
-        </li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li><a class="dropdown-item" href="/single_test/addquestion?id=<?= $test['test_id'] ?>&tab=add">
-            Add Theory Question</a>
-        </li>
-      </ul>
+  <nav class="navbar">
+    <div>
+      <h3>Test Questions</h3>
+      <p style="margin: 5px;">
+        <b>Total Question:</b>
+        <?= $total_questions ?>
+      </p>
     </div>
-  <?php endif; ?>
 
-</nav>
+    <?php if (onlyLecturer()) : ?>
+      <div class="btn-group">
+        <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Add
+        </button>
+        <ul class="dropdown-menu  dropdown-menu-end">
+          <li><a class="dropdown-item" href="/single_test/addquestion?id=<?= $test['test_id'] ?>&type=multiple&tab=add">
+              Add Multiple choice Question</a>
+          </li>
+          <li><a class="dropdown-item" href="/single_test/addquestion?id=<?= $test['test_id'] ?>&type=german&tab=add">
+              Add German Question</a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" href="/single_test/addquestion?id=<?= $test['test_id'] ?>&tab=add">
+              Add Theory Question</a>
+          </li>
+        </ul>
+      </div>
+    <?php endif; ?>
 
-<hr>
+  </nav>
+
+  <hr>
+<?php endif; ?>
+
 
 <?php if ($questions) : ?>
   <?php $num = ($total_questions + 1); ?>

@@ -55,7 +55,7 @@ require base_path("/views/partials/nav.php");
                 </select>
 
 
-                <select name="role" id="" class="form-control my-2 <?= isset($errors['role']) ? 'border border-danger' : '' ?>" <?= !access('admin') ? "disabled" : '' ?>>
+                <select name="role" id="" class="form-control my-2 <?= isset($errors['role']) ? 'border border-danger' : '' ?>" <?= !access('admin') ? "readonly" : '' ?>>
                   <option <?= $user['role'] === '' ? "selected" : '' ?> value="">--Select a Rank--</option>
                   <option <?= $user['role'] === 'student' ? "selected" : '' ?> value="student">Student</option>
                   <option <?= $user['role'] === 'reception' ? "selected" : '' ?> value="reception">Reception</option>

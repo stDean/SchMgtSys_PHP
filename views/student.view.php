@@ -10,9 +10,11 @@ require base_path("/views/partials/nav.php");
   <nav class="navbar navbar-light bg-light">
     <?php require base_path("/views/partials/searchForm.php") ?>
 
-    <a href="/register?mode=student" class="btn btn-sm btn-primary ">
-      <i class="fa fa-plus"></i>Add New Student
-    </a>
+    <?php if (access('admin') || getUserRank() === "RECEPTION") : ?>
+      <a href="/register?mode=student" class="btn btn-sm btn-primary ">
+        <i class="fa fa-plus"></i>Add New Student
+      </a>
+    <?php endif; ?>
   </nav>
 
   <div class="card-group justify-content-center">

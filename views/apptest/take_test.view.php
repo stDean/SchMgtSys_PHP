@@ -117,7 +117,7 @@ require base_path("/views/partials/nav.php");
                         <li class="list-group-item" style="cursor: pointer;">
                           <?= $key ?>. <?= $choice ?>
 
-                          <?php if ($answeredTest && !$answeredTest['submitted']) : ?>
+                          <?php if (!($answeredTest && $answeredTest['submitted'])) : ?>
                             <input type="radio" name="<?= $question['id'] ?>" value="<?= $key ?>" class="float-end" style="transform: scale(1.3); margin-top: 6px;" id="choice<?= $key ?>" <?= getAnswer($answers, $question['id']) === $key ? "checked" : '' ?> />
 
                           <?php else : ?>
@@ -149,6 +149,8 @@ require base_path("/views/partials/nav.php");
 
     <?php else : ?>
       <h3 align='center' class="my-4">No Question Yet, Check Back Later.</h3>
+      <br>
+      <small>save answers and move to the next page</small>
     <?php endif; ?>
 
   <?php else : ?>

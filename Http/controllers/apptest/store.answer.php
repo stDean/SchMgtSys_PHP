@@ -21,7 +21,7 @@ $att2 = [
 
 if (isset($_GET['submit'])) {
   $att2['submitted'] = 1;
-
+  
   $submitForMark = (new SubmitForMark)->attempt($att2);
 
   header('location: /single_test?id=' . $_GET['id']);

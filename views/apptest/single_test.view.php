@@ -15,7 +15,9 @@ require base_path("/views/partials/nav.php");
           <th>Created By</th>
           <th>Date Created:</th>
           <th>Active</th>
+
           <th>Action</th>
+
         </tr>
       </thead>
       <tbody>
@@ -35,11 +37,19 @@ require base_path("/views/partials/nav.php");
             $getVar = "disable=false";
           }
           ?>
-          <td>
-            <a href="/single_test?id=<?= $test['test_id'] ?>&<?= $getVar ?>">
-              <button class="btn btn-sm <?= $btnColor ?>"><b><?= $btnText ?> Test</b></button>
-            </a>
-          </td>
+          <?php if (onlyLecturer() && $test['editable']) : ?>
+            <td>
+              <a href="/single_test?id=<?= $test['test_id'] ?>&<?= $getVar ?>">
+                <button class="btn btn-sm <?= $btnColor ?>"><b><?= $btnText ?> Test</b></button>
+              </a>
+            </td>
+          <?php else :  ?>
+            <td>
+              <a href="/single_test?id=<?= $test['test_id'] ?>&tab=scores">
+                <button class="btn btn-sm btn-success">View Scores</b></button>
+              </a>
+            </td>
+          <?php endif; ?>
         </tr>
       </tbody>
     </table>
@@ -56,6 +66,9 @@ require base_path("/views/partials/nav.php");
         break;
       case 'delete':
         require "tab/delete.inc.php";
+        break;
+      case 'scores':
+        require "tab/scores.inc.php";
         break;
       default:
         require "tab/view.inc.php";

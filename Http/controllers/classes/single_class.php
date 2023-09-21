@@ -5,6 +5,7 @@ use Core\Database;
 use Core\Pagination;
 
 $db = App::resolve(Database::class);
+
 $class = $db->query('SELECT * FROM classes WHERE class_id=:class_id', [
   'class_id' => $_GET['id']
 ])->find();

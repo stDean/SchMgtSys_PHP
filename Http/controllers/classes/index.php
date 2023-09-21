@@ -17,7 +17,7 @@ if (access('admin') || getUserRank() === 'RECEPTION') {
       'SELECT * FROM classes WHERE school_id=:school_id AND class_name LIKE :keyword ORDER BY id DESC',
       [
         'school_id' => Session::getSchool_Id(),
-        'keyword' => "%" . $keyword . "%"
+        'keyword' => trim($keyword) . "%"
       ]
     )->get();
   }

@@ -15,7 +15,11 @@ require base_path("/views/partials/nav.php");
 
   <?php
 
-  $classes = $tests;
+  // dump($tests);
+  $classes = [];
+  foreach ($tests as $test) {
+    $classes[] = $test;
+  }
 
   require base_path("/views/partials/table.php");
 

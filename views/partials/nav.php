@@ -45,11 +45,21 @@ use Core\Session;
           <a class="nav-link <?= urlIs('/tests') || urlIs('/single_test') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS</a>
         </li>
 
-        <?php if (access('lecturer')) : ?>
-          <li class="nav-item">
-            <a class="nav-link <?= urlIs('/mark_test') ? 'active bg-secondary text-white' : '' ?>" href="/mark_test">MARK TEST</a>
+        <?php if (onlyLecturer()) : ?>
+          <li class="nav-item" style="position: relative;">
+            <a class="nav-link <?= urlIs('/mark_test') ? 'active bg-secondary text-white' : '' ?>" href="/mark_test">
+              MARK TEST
+              <?php
+              $toMarkCount = markCount();
+              ?>
+              <?php if ($toMarkCount) : ?>
+                <small class="badge bg-danger text-white" style="position: absolute; top: -3px; right: -3px"><?= $toMarkCount ?></small>
+              <?php endif; ?>
+            </a>
           </li>
+        <?php endif; ?>
 
+        <?php if (access('lecturer')) : ?>
           <li class="nav-item">
             <a class="nav-link <?= urlIs('/marked_tests') ? 'active bg-secondary text-white' : '' ?>" href="/marked_tests">MARKED TESTS</a>
           </li>

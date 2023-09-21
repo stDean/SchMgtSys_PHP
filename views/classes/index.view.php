@@ -12,7 +12,7 @@ require base_path("/views/partials/nav.php");
   <nav class="navbar navbar-light bg-light">
     <?php require base_path("/views/partials/searchForm.php") ?>
 
-    <?php if (access('lecturer')) : ?>
+    <?php if (access('admin')) : ?>
       <a href="/classes/create" class="btn btn-sm btn-primary "><i class="fa fa-plus"></i>Add New Class</a>
     <?php endif; ?>
   </nav>

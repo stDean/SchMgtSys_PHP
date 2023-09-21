@@ -5,7 +5,7 @@
 
   ?>
 
-  <?php if (access('lecturer')) : ?>
+  <?php if (onlyLecturer()) : ?>
     <a href='/single_class/test?id=<?= $class['class_id'] ?>&tab=test-add' class="btn btn-sm btn-primary ">
       <i class="fa fa-plus"></i>Add New Test
     </a>

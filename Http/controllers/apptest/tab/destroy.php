@@ -2,7 +2,6 @@
 
 use Core\App;
 use Core\Database;
-use Core\Session;
 use Http\Form\QuestionForm;
 
 $db = App::resolve(Database::class);
