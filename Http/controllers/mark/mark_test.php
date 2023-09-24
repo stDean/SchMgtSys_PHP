@@ -30,7 +30,7 @@ $questions = $db->query("SELECT * FROM test_questions WHERE test_id=:test_id ORD
   'test_id' => $_GET['test']
 ])->get();
 
-$allQuestions = $db->query("SELECT id FROM test_questions WHERE test_id=:test_id", [
+$allQuestions = $db->query("SELECT * FROM test_questions WHERE test_id=:test_id", [
   'test_id' => $_GET['test']
 ])->get();
 
@@ -74,7 +74,7 @@ if (isset($student)) {
 }
 
 if (isset($_GET['unsubmit'])) {
-  foreach ($questions as $question) {
+  foreach ($allQuestions as $question) {
     $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
       'answer_mark' => 0,
       'user_id' => $_GET['user'],
@@ -90,8 +90,9 @@ if (isset($_GET['unsubmit'])) {
 
   header('location: /mark_test');
 } elseif (isset($_GET['auto'])) {
-  if ($questions) {
-    foreach ($questions as $key => $question) {
+
+  if ($allQuestions) {
+    foreach ($allQuestions as $key => $question) {
       $answers = $db->query("SELECT id, correct_answer FROM answers WHERE test_id=:test_id AND question_id=:question_id And user_id=:user_id ", [
         'test_id' => $_GET['test'],
         'user_id' => $_GET['user'],
@@ -99,12 +100,10 @@ if (isset($_GET['unsubmit'])) {
       ])->find();
 
       if ($answers) {
-        dump($answers);
         $studentAnswer = strtolower(trim($answers['correct_answer']));
         $correctAnswer = strtolower(trim($question['correct_answer']));
 
         if ($correctAnswer === $studentAnswer) {
-          dump('correct');
           $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
             'answer_mark' => 1,
             'test_id' => $_GET['test'],
@@ -112,9 +111,17 @@ if (isset($_GET['unsubmit'])) {
             'question_id' => $question['id']
           ]);
         } else {
-          dump('incorrect');
           $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
             'answer_mark' => 2,
+            'test_id' => $_GET['test'],
+            'user_id' => $_GET['user'],
+            'question_id' => $question['id']
+          ]);
+        }
+
+        if ($correctAnswer === "") {
+          $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
+            'answer_mark' => 0,
             'test_id' => $_GET['test'],
             'user_id' => $_GET['user'],
             'question_id' => $question['id']

@@ -80,7 +80,7 @@ require base_path("/views/partials/nav.php");
     <hr />
     <?php if ($page_tab !== 'add') : ?>
       <div>
-        <a href='<?= $_SERVER['HTTP_REFERER'] ?>' class="btn btn-sm btn-secondary ">
+        <a href='/tests' class="btn btn-sm btn-secondary ">
           Back
         </a>
 
