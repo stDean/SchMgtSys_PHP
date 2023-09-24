@@ -78,17 +78,19 @@ require base_path("/views/partials/nav.php");
     ?>
 
     <hr />
-    <div>
-      <a href='<?= $_SERVER['HTTP_REFERER'] ?>' class="btn btn-sm btn-secondary ">
-        Back
-      </a>
-
-      <div class="float-end">
-        <a href='/single_class?id=<?= $test['class_id'] ?>&tab=tests' class="btn btn-sm btn-primary ">
-          View Class
+    <?php if ($page_tab !== 'add') : ?>
+      <div>
+        <a href='<?= $_SERVER['HTTP_REFERER'] ?>' class="btn btn-sm btn-secondary ">
+          Back
         </a>
+
+        <div class="float-end">
+          <a href='/single_class?id=<?= $test['class_id'] ?>&tab=tests' class="btn btn-sm btn-primary ">
+            View Class
+          </a>
+        </div>
       </div>
-    </div>
+    <?php endif; ?>
     <div class="clearfix"></div>
   <?php else : ?>
     <h4 align='center'>Test does not exist!</h4>

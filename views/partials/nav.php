@@ -41,8 +41,12 @@ use Core\Session;
           <a class="nav-link <?= urlIs('/classes') || urlIs('/single_class') ? 'active bg-secondary text-white' : '' ?>" href="/classes">CLASSES</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link <?= urlIs('/tests') || urlIs('/single_test') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS</a>
+        <li class="nav-item" style="position: relative;">
+          <a class="nav-link <?= urlIs('/tests') || urlIs('/single_test') ? 'active bg-secondary text-white' : '' ?>" href="/tests">TESTS
+            <?php if (unSubmittedCount()) : ?>
+              <small class="badge bg-danger text-white" style="position: absolute; top: -3px; right: -3px"><?= unSubmittedCount() ?></small>
+            <?php endif; ?>
+          </a>
         </li>
 
         <?php if (onlyLecturer()) : ?>
@@ -85,6 +89,25 @@ use Core\Session;
         </li>
       </ul>
 
+      <form class="form-inline">
+        <div class="input-group">
+          <?php
+          $years = getYears();
+          ?>
+          <?= add_get_vars() ?>
+          <select class="form-select" name="school_year" id="year">
+            <option><?= getVar('school_year', !empty($_SESSION['school_year']->year) ? $_SESSION['school_year']->year : date("Y", time()), "get") ?></option>
+            <?php foreach ($years as $year) : ?>
+              <option value="<?= $year ?>"><?= $year ?></option>
+            <?php endforeach; ?>
+          </select>
+
+          <button class="input-group-text btn-btn-sm" id="basic-addon1">
+            &nbsp;
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </nav>

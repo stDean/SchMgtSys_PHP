@@ -1,13 +1,5 @@
-<?php if (Core\Session::getRole() === "STUDENT") : ?>
+<?php if (Core\Session::getRole() === "student") : ?>
   <h3 class="mt-2">Marked Tests</h3>
-
-  <nav class="navbar navbar-light bg-light">
-    <?php
-
-    require base_path("/views/partials/searchForm.php");
-
-    ?>
-  </nav>
 
   <?php
 
@@ -85,12 +77,7 @@
 <?php else : ?>
 
 
-  <h3 align='center'>Tests</h3>
-
-  <nav class="navbar navbar-light bg-light">
-    <?php require base_path("/views/partials/searchForm.php") ?>
-  </nav>
-
+  <h3>Tests</h3>
   <?php
 
   $title = "Test";

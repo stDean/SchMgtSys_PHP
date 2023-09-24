@@ -54,7 +54,6 @@ $router->post('/mark', "mark/mark_single_test.php")->only(['auth', 'lecturer']);
 $router->get('/marked_tests', "mark/marked.php")->only(['auth', 'lectAndAbove']);
 $router->get('/mark_view', "mark/mark_view.php")->only(['auth']);
 
-
 $router->get('/login', "session/create.php")->only('guest');
 $router->post('/session', "session/store.php")->only('guest');
 $router->delete('/session', "session/destroy.php")->only('auth');

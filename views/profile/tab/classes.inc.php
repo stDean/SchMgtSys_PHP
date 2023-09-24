@@ -1,12 +1,11 @@
-<h3 class="mt-2">Classes</h3>
-
-<nav class="navbar navbar-light bg-light">
-  <?php require base_path("/views/partials/searchForm.php"); ?>
+<div style="display: flex; justify-content: space-between;">
+  <h3 class="mt-2">Classes</h3>
 
   <?php if (access('lecturer')) : ?>
-    <a href="/classes/create" class="btn btn-sm btn-primary "><i class="fa fa-plus"></i>Add New Class</a>
+    <a href="/classes/create" class="btn btn-sm btn-primary" style="margin-top: 10px; height: max-content; align-items: center;">
+      <i class="fa fa-plus"></i>Add New Class</a>
   <?php endif; ?>
-</nav>
+</div>
 
 <hr>
 

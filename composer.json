@@ -6,7 +6,9 @@
             "email": "tobaogundimu@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "mpdf/mpdf": "^8.2"
+    },
     "autoload": {
         "psr-4": {
             "Core\\": "Core/",

@@ -10,9 +10,11 @@ use Http\Form\AnswerForm;
 $db = App::resolve(Database::class);
 
 $attributes = [
-  'user_id' => Session::getUser_Id(),
+  'user_id' => (Session::getUser_Id()),
   'test_id' => $_GET['id']
 ];
+
+// dd($attributes['user_id']);
 
 $att2 = [
   'user_id' => $attributes['user_id'],
@@ -21,7 +23,7 @@ $att2 = [
 
 if (isset($_GET['submit'])) {
   $att2['submitted'] = 1;
-  
+
   $submitForMark = (new SubmitForMark)->attempt($att2);
 
   header('location: /single_test?id=' . $_GET['id']);

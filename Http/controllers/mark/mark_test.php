@@ -74,6 +74,15 @@ if (isset($student)) {
 }
 
 if (isset($_GET['unsubmit'])) {
+  foreach ($questions as $question) {
+    $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
+      'answer_mark' => 0,
+      'user_id' => $_GET['user'],
+      'test_id' => $_GET['test'],
+      'question_id' => $question['id']
+    ]);
+  }
+  dump('updated');
   $db->query('DELETE FROM answered_tests WHERE test_id=:test_id AND user_id=:user_id', [
     'user_id' => $_GET['user'],
     'test_id' => $_GET['test'],
@@ -81,16 +90,44 @@ if (isset($_GET['unsubmit'])) {
 
   header('location: /mark_test');
 } elseif (isset($_GET['auto'])) {
-  // $db->query('DELETE FROM answered_tests WHERE test_id=:test_id AND user_id=:user_id', [
-  //   'user_id' => $_GET['user'],
-  //   'test_id' => $_GET['test'],
-  // ]);
+  if ($questions) {
+    foreach ($questions as $key => $question) {
+      $answers = $db->query("SELECT id, correct_answer FROM answers WHERE test_id=:test_id AND question_id=:question_id And user_id=:user_id ", [
+        'test_id' => $_GET['test'],
+        'user_id' => $_GET['user'],
+        'question_id' => $question['id']
+      ])->find();
 
-  // header('location: /mark?test=' . $_GET['test'] . '&user=' . $_GET['user']);
+      if ($answers) {
+        dump($answers);
+        $studentAnswer = strtolower(trim($answers['correct_answer']));
+        $correctAnswer = strtolower(trim($question['correct_answer']));
+
+        if ($correctAnswer === $studentAnswer) {
+          dump('correct');
+          $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
+            'answer_mark' => 1,
+            'test_id' => $_GET['test'],
+            'user_id' => $_GET['user'],
+            'question_id' => $question['id']
+          ]);
+        } else {
+          dump('incorrect');
+          $db->query('UPDATE answers SET answer_mark=:answer_mark WHERE test_id=:test_id AND user_id=:user_id AND question_id=:question_id', [
+            'answer_mark' => 2,
+            'test_id' => $_GET['test'],
+            'user_id' => $_GET['user'],
+            'question_id' => $question['id']
+          ]);
+        }
+      }
+    }
+  }
+  header('location: /mark?test=' . $_GET['test'] . '&user=' . $_GET['user']);
 } elseif (isset($_GET['marked']) && $markedPercent >= 100) {
   $db->query('UPDATE answered_tests SET marked=:marked, marked_date=:marked_date, marked_by=:marked_by, score=:score WHERE test_id=:test_id AND user_id=:user_id', [
     'marked' => 1,
-    'marked_by' => Session::getUser_Id(),
+    'marked_by' => (Session::getUser_Id()),
     'marked_date' => date("Y-m-d H:i:s"),
     'user_id' => $_GET['user'],
     'test_id' => $_GET['test'],

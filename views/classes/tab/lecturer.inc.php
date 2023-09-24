@@ -1,18 +1,10 @@
-<nav class="navbar navbar-light bg-light">
-  <?php
-
-  require base_path("/views/partials/searchForm.php");
-
-  ?>
-
-  <?php if (access('admin')) : ?>
+<?php if (access('admin')) : ?>
+  <nav class="navbar navbar-light bg-light">
     <a href='/single_class/lecturer?id=<?= $class['class_id'] ?>&tab=lecturer-add' class="btn btn-sm btn-primary ">
       <i class="fa fa-plus"></i>Add New Lecturer
     </a>
-
-  <?php endif; ?>
-
-</nav>
+  </nav>
+<?php endif; ?>
 
 
 <div class="card-group justify-content-center">

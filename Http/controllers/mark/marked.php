@@ -5,6 +5,7 @@ use Core\Database;
 use Core\Session;
 
 $db = App::resolve(Database::class);
+$year = !empty($_SESSION['school_year']->year) ? $_SESSION['school_year']->year : date("Y", time());
 
 $classId = $db->query("SELECT class_id FROM classes_lecturer WHERE user_id=:user_id", [
   'user_id' => Session::getUser_Id()
@@ -24,14 +25,16 @@ foreach ($classId as $key => $val) {
 $marked = [];
 if (!empty($allTests)) {
   foreach ($allTests as $key => $test) {
-    $res = $db->query("SELECT * FROM answered_tests WHERE test_id=:test_id AND submitted = 1 AND marked = 1", [
-      'test_id' => $test['test_id']
+    $res = $db->query("SELECT * FROM answered_tests WHERE test_id=:test_id AND submitted = 1 AND marked = 1 AND YEAR(created_at) LIKE :year", [
+      'test_id' => $test['test_id'],
+      'year' => $year
     ])->get();
 
     if (isset($_GET['search'])) {
-      $res = $db->query("SELECT answered_tests.*, tests.test_name FROM answered_tests JOIN tests ON answered_tests.test_id = tests.test_id WHERE  tests.test_name LIKE :keyword AND marked = 1 AND submitted = 1 AND answered_tests.test_id=:test_id", [
+      $res = $db->query("SELECT answered_tests.*, tests.test_name FROM answered_tests JOIN tests ON answered_tests.test_id = tests.test_id WHERE  tests.test_name LIKE :keyword AND marked = 1 AND submitted = 1 AND answered_tests.test_id=:test_id AND YEAR(created_at) LIKE :year", [
         'keyword' => trim($_GET['search']) . "%",
-        'test_id' => $test['test_id']
+        'test_id' => $test['test_id'],
+        'year' => $year
       ])->get();
     }
 
@@ -55,14 +58,16 @@ if (!empty($allTests)) {
 
   $res = [];
   foreach ($tests as $test) {
-    $resp = $db->query('SELECT * FROM answered_tests WHERE submitted = 1 AND marked = 1 AND test_id=:test_id', [
-      'test_id' => $test['test_id']
+    $resp = $db->query('SELECT * FROM answered_tests WHERE submitted = 1 AND marked = 1 AND test_id=:test_id AND YEAR(created_at) LIKE :year', [
+      'test_id' => $test['test_id'],
+      'year' => $year
     ])->get();
 
     if (isset($_GET['search'])) {
-      $resp = $db->query("SELECT answered_tests.*, tests.test_name FROM answered_tests JOIN tests ON answered_tests.test_id = tests.test_id WHERE  tests.test_name LIKE :keyword AND marked = 1 AND submitted = 1 AND answered_tests.test_id=:test_id", [
+      $resp = $db->query("SELECT answered_tests.*, tests.test_name FROM answered_tests JOIN tests ON answered_tests.test_id = tests.test_id WHERE  tests.test_name LIKE :keyword AND marked = 1 AND submitted = 1 AND answered_tests.test_id=:test_id AND YEAR(created_at) LIKE :year", [
         'keyword' => trim($_GET['search']) . "%",
-        'test_id' => $test['test_id']
+        'test_id' => $test['test_id'],
+        'year' => $year
       ])->get();
     }
     $res = array_merge($res, $resp);

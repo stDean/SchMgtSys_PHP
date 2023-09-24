@@ -110,19 +110,23 @@ $lectName = $db->query("SELECT first_name, last_name FROM users WHERE user_id=:u
             <?php if ($question['question_type'] === 'theory') :  ?>
               <div><b>Answer:</b> <?= getAnswer($answers, $question['id']) ?></div>
               <hr>
-              <p>Teacher Mark:</p>
-              <div style="font-size: 45px;">
-                <?= getMarkedAnswer($answers, $question['id']) === 1 ? "<i class='fa fa-check float-end'  style='color: green;'></i>" : "<i class='fa fa-times float-end'  style='color: red;'></i>" ?>
+              <div>
+                <p class="m-0">Teacher Mark:</p>
+                <div style="font-size: 45px;">
+                  <?= getMarkedAnswer($answers, $question['id']) === 1 ? "<i class='fa fa-check float-end'  style='color: green;'></i>" : "<i class='fa fa-times float-end'  style='color: red;'></i>" ?>
+                </div>
               </div>
             <?php endif ?>
 
             <?php if ($question['question_type'] === 'german') :  ?>
               <div><b>Answer:</b> <?= getAnswer($answers, $question['id']) ?></div>
               <hr>
-              <p>Teacher Mark:</p>
+              <div>
+                <p class="m-0">Teacher Mark:</p>
 
-              <div style="font-size: 45px;">
-                <?= getMarkedAnswer($answers, $question['id']) === 1 ? "<i class='fa fa-check float-end'  style='color: green;'></i>" : "<i class='fa fa-times float-end'  style='color: red;'></i>" ?>
+                <div style="font-size: 45px;">
+                  <?= getMarkedAnswer($answers, $question['id']) === 1 ? "<i class='fa fa-check float-end'  style='color: green;'></i>" : "<i class='fa fa-times float-end'  style='color: red;'></i>" ?>
+                </div>
               </div>
             <?php endif ?>
 
@@ -151,7 +155,7 @@ $lectName = $db->query("SELECT first_name, last_name FROM users WHERE user_id=:u
 
               <hr>
               <div>
-                <p>Teacher Mark:</p>
+                <p class="m-0">Teacher Mark:</p>
 
                 <div style="font-size: 45px;">
                   <?= getMarkedAnswer($answers, $question['id']) === 1 ? "<i class='fa fa-check float-end' style='color: green;'></i>" : "<i class='fa fa-times float-end'  style='color: red;'></i>" ?>
@@ -168,8 +172,6 @@ $lectName = $db->query("SELECT first_name, last_name FROM users WHERE user_id=:u
     <?php endif; ?>
   <?php endif; ?>
 </div>
-
-
 
 <?php
 

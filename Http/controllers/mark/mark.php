@@ -5,6 +5,7 @@ use Core\Database;
 use Core\Session;
 
 $db = App::resolve(Database::class);
+$year = !empty($_SESSION['school_year']->year) ? $_SESSION['school_year']->year : date("Y", time());
 
 $classId = $db->query("SELECT class_id FROM classes_lecturer WHERE user_id=:user_id", [
   'user_id' => Session::getUser_Id()
@@ -24,16 +25,18 @@ foreach ($classId as $key => $val) {
 $toMark = [];
 if ($allTests) {
   foreach ($allTests as $key => $test) {
-    $res = $db->query("SELECT * FROM answered_tests WHERE test_id=:test_id AND submitted=1 AND marked=0", [
+    $res = $db->query("SELECT * FROM answered_tests WHERE test_id=:test_id AND submitted=1 AND marked=0 AND YEAR(created_at) LIKE :year", [
       'test_id' => $test['test_id'],
+      'year' => $year
     ])->get();
 
     if (isset($_GET['search'])) {
       $res = $db->query(
-        "SELECT answered_tests.*, tests.test_name FROM answered_tests JOIN tests ON answered_tests.test_id=tests.test_id WHERE answered_tests.test_id=:test_id AND submitted=1 AND marked=0 AND test_name LIKE :keyword",
+        "SELECT answered_tests.*, tests.test_name FROM answered_tests JOIN tests ON answered_tests.test_id=tests.test_id WHERE answered_tests.test_id=:test_id AND submitted=1 AND marked=0 AND test_name LIKE :keyword AND YEAR(created_at) LIKE :year",
         [
           'test_id' => $test['test_id'],
-          'keyword' => trim($_GET['search']) . "%"
+          'keyword' => trim($_GET['search']) . "%",
+          'year' => $year
         ]
       )->get();
     }

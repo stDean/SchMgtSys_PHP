@@ -6,18 +6,21 @@ use Core\Session;
 
 $db = App::resolve(Database::class);
 $keyword = isset($_GET['search']) ? $_GET['search'] : false;
+$year = !empty($_SESSION['school_year']->year) ? $_SESSION['school_year']->year : date("Y", time());
 
 if (access('admin') || getUserRank() === 'RECEPTION') {
-  $classes = $db->query('SELECT * FROM classes WHERE school_id=:school_id ORDER BY id DESC', [
-    'school_id' => Session::getSchool_Id()
+  $classes = $db->query('SELECT * FROM classes WHERE school_id=:school_id AND YEAR(createdAt) LIKE :year ORDER BY id DESC', [
+    'school_id' => Session::getSchool_Id(),
+    'year' => $year
   ])->get();
 
   if ($keyword) {
     $classes = $db->query(
-      'SELECT * FROM classes WHERE school_id=:school_id AND class_name LIKE :keyword ORDER BY id DESC',
+      'SELECT * FROM classes WHERE school_id=:school_id AND class_name LIKE :keyword AND YEAR(createdAt) LIKE :year ORDER BY id DESC',
       [
         'school_id' => Session::getSchool_Id(),
-        'keyword' => trim($keyword) . "%"
+        'keyword' => trim($keyword) . "%",
+        'year' => $year
       ]
     )->get();
   }
@@ -25,33 +28,22 @@ if (access('admin') || getUserRank() === 'RECEPTION') {
   $rank = Session::getRole();
   $table = "classes_students";
 
-  if ($rank === 'LECTURER') {
+  if ($rank === 'lecturer') {
     $table = "classes_lecturer";
   }
 
-  $person = $db->query("SELECT * FROM $table WHERE user_id=:user_id", [
-    'user_id' => Session::getUser_Id()
-  ])->get();
+  $query = "SELECT * FROM classes WHERE class_id IN (SELECT class_id FROM $table WHERE user_id=:user_id) AND YEAR(createdAt) LIKE :year";
 
   if ($keyword) {
-    $person = $db->query(
-      "SELECT $table.*, classes.class_name FROM $table JOIN classes ON $table.class_id = classes.class_id WHERE $table.user_id=:user_id AND class_name LIKE :keyword",
-      [
-        'user_id' => Session::getUser_Id(),
-        'keyword' => "%" . $keyword . "%"
-      ]
-    )->get();
+    $query = "SELECT * FROM classes WHERE class_id IN (SELECT $table.class_id FROM $table JOIN classes ON $table.class_id = classes.class_id WHERE $table.user_id=:user_id AND class_name LIKE :keyword) AND YEAR(createdAt) LIKE :year";
+
+    $arr['keyword'] = trim($keyword) . "%";
   }
 
-  $classes = [];
+  $arr['year'] = $year;
+  $arr['user_id'] = Session::getUser_Id();
 
-  if ($person) {
-    foreach ($person as $key => $val) {
-      $classes[] = $db->query("SELECT * FROM classes WHERE class_id=:class_id", [
-        'class_id' => $val['class_id']
-      ])->find();
-    }
-  }
+  $classes = $db->query($query, $arr)->get();
 }
 
 $newClass = afterSelect($classes, 'user', $db);
